@@ -9,7 +9,7 @@ function App() {
   return (
     <>
 
-      <Map />
+      <Map location={"Ahmedabad"} cordinates={[22.99180142158226, 72.4865308522456]}/>
     </>
   )
 }
