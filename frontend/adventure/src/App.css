@@ -1,2 +1,6 @@
 
 #map { height: 180px; }
+#logo {
+   mix-blend-mode: multiply; 
+   margin-left: 35px
+}
