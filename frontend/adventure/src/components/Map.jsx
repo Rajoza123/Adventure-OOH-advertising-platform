@@ -25,7 +25,7 @@ const MyMap = (props) => {
     <MapContainer
       center={cordinates}
       zoom={13}
-      scrollWheelZoom={false}
+      scrollWheelZoom={true}
       style={{ height: '50vh', width: '100%' }}
     >
       <TileLayer

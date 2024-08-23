@@ -1,30 +1,47 @@
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
+import React from 'react';
+import { Carousel } from 'react-bootstrap';
+import image1 from './images/download1.jpeg';
+import image2 from './images/download2.jpeg';
+import image3 from './images/pexels-freestockpro-1031700.jpg';
 
-function Home() {
+const CarouselComponent = () => {
   return (
-    <>
-      
-      {/* <Navbar bg="primary" data-bs-theme="dark">
-        <Container>
-          <Navbar.Brand href="#home">Adventure</Navbar.Brand>
-          <Nav className=" ms-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#features">Publisher</Nav.Link>
-            <Nav.Link href="#pricing">Company</Nav.Link>
-            <Nav.Link href="#pricing">About Us</Nav.Link>
-            <Nav.Link href="#pricing">Login</Nav.Link>
-            <Nav.Link href="#pricing">Signup</Nav.Link>
-          </Nav>
-        </Container>
-      </Navbar> */}
-      <h1>This is home page</h1>
-
-      <br />
-      
-    </>
+    <Carousel>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src={image1}
+          alt="First slide"
+        />
+        <Carousel.Caption>
+          <h3>First Slide Label</h3>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src={image2}
+          alt="Second slide"
+        />
+        <Carousel.Caption>
+          <h3>Second Slide Label</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+      <Carousel.Item>
+        <img
+          className="d-block w-100"
+          src={image3}
+          alt="Third slide"
+        />
+        <Carousel.Caption>
+          <h3>Third Slide Label</h3>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </Carousel.Caption>
+      </Carousel.Item>
+    </Carousel>
   );
-}
+};
 
-export default Home;
+export default CarouselComponent;
