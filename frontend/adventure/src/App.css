@@ -4,3 +4,11 @@
    mix-blend-mode: multiply; 
    margin-left: 35px
 }
+#img{
+   width: 100%;
+   height: 500px;
+}
+#search{
+   background-color: red;
+   padding: 30px;
+}
