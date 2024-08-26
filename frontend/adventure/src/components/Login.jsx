@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   MDBBtn,
   MDBContainer,
@@ -13,6 +13,9 @@ import {
 from 'mdb-react-ui-kit';
 
 function Login() {
+  
+  const [currentUser, setCurrentUser] = useState('publisher')
+  
   return (
     <MDBContainer fluid>
 
@@ -35,7 +38,9 @@ function Login() {
               </MDBBtn>
 
               <hr className="my-4" />
-
+              <div className='container'>
+                <p >Login as <a className='text-primary' onClick={()=> setCurrentUser(currentUser == 'publisher'? "company" : "publisher")}>{currentUser == 'publisher'? "Company" : "Publisher"}? </a></p>
+              </div>
               <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
                 <MDBIcon fab icon="google" className="mx-2"/>
                 Sign in with google
