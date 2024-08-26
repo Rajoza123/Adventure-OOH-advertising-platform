@@ -1,36 +1,37 @@
 from django.shortcuts import render 
-from rest_framework.views import APIView 
+from rest_framework import status
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
 from . models import *
-from rest_framework.response import Response 
 from . serializer import *
-import json
-# Create your views here. 
+# Create your views here.
 
 class BillxCompView(APIView): 
 	
 	serializer_class = ReactBillxCompSerializer 
 
 	def get(self, request): 
-		detail = [ {'id' :bc.id,'billboard_id':bc.billboard_id,'company_id':bc.company_id,'booking_date':bc.booking_date,'start_date':bc.start_date,'end_date':bc.end_date,'price':bc.price}
-		for bc in billxcomp.objects.all()] 
-		return Response(detail) 
+		billxcomp_list = billxcomp.objects.all()
+		serializer = self.serializer_class(billxcomp_list,many=True)
+		return Response(serializer.data)
 
 	def post(self, request): 
-
 		serializer = ReactBillxCompSerializer(data=request.data) 
 		if serializer.is_valid(raise_exception=True): 
 			serializer.save() 
 			return Response(serializer.data) 
 
+
 class BillboardTypeView(APIView): 
-	
-	serializer_class = ReactBillBoardTypeSerializer 
 
-	def get(self, request): 
-		detail = [ {'id' :type.id,'name':type.name}
-		for type in billboard_type.objects.all()] 
+	serializer_class = ReactBillBoardTypeSerializer	
+		
 
-		return Response(detail) 
+	def get(self, request):
+		billboardtype_list = billboard_type.objects.all()
+		serializer = self.serializer_class(billboardtype_list,many=True)
+		return Response(serializer.data) 
 
 	def post(self, request): 
 
