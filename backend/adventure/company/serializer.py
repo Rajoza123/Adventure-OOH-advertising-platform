@@ -1,9 +1,7 @@
 from rest_framework import serializers 
 from . models import *
 
-
-
-class ReactPublisherSerializer(serializers.ModelSerializer): 
+class ReactCompanySerializer(serializers.ModelSerializer): 
 	class Meta: 
-		model = publishers
+		model = companies
 		fields = ('__all__') 

@@ -1,8 +1,7 @@
 import React from 'react';
 import { Carousel, Container } from 'react-bootstrap';
-// import image1 from './images/download1.jpeg';
-// import image2 from './images/download2.jpeg';
-// import image3 from './images/pexels-freestockpro-1031700.jpg';
+import image1 from './images/large_formate_holdings.jpg';
+
 import '../App.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -13,6 +12,8 @@ import i2 from './images/ad1.jpg'
 import i3 from './images/ad3.jpg'
 import backMap from './images/backMap.jpg'
 import {
+  MDBRow,
+  MDBCol,
   MDBCard,
   MDBCardBody,
   MDBCardTitle,
@@ -77,28 +78,56 @@ const CarouselComponent = () => {
           </Form>
         </Container>
       </div>
-      <div className='d-flex'>
-      <MDBCard>
-        <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
-        <MDBCardBody>
-          <MDBCardTitle>Card title</MDBCardTitle>
-          <MDBCardText>
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </MDBCardText>
-          <MDBBtn href='#'>Button</MDBBtn>
-        </MDBCardBody>
-      </MDBCard>
-      <MDBCard>
-        <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
-        <MDBCardBody>
-          <MDBCardTitle>Card title</MDBCardTitle>
-          {/* <MDBCardText>
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </MDBCardText> */}
-          <MDBBtn href='#'>Button</MDBBtn>
-        </MDBCardBody>
-      </MDBCard>
-      </div>
+      <MDBRow className="g-5">
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src={image1} alt="Card 1" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Large_formate_holdings</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 2" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Button 2</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 3" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Button 3</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 4" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Button 4</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 5" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Button 5</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+      <MDBCol xs="12" md="6" lg="3">
+        <MDBCard className="h-100">
+          <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 6" position="top" />
+          <MDBCardBody className="d-flex justify-content-center">
+            <MDBBtn className="w-100">Button 6</MDBBtn>
+          </MDBCardBody>
+        </MDBCard>
+      </MDBCol>
+    </MDBRow>
     </div>
   );
 };
