@@ -10,18 +10,18 @@ import markerShadow from 'leaflet/dist/images/marker-shadow.png';
 import axios from 'axios';
 
 let DefaultIcon = L.icon({
-    iconUrl: markerIcon,
-    shadowUrl: markerShadow
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow
 });
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const MyMap = (props) => {
-    // const [params,  setParams] = React.useState({city:'', media:''})
-    // useEffect(()=>{
-    //   const query = new URLSearchParams(window.location.search)
-    //   setParams({'city':query.get('city'), 'media':query.get('mediaType')})
-    // },[])
+  // const [params,  setParams] = React.useState({city:'', media:''})
+  // useEffect(()=>{
+  //   const query = new URLSearchParams(window.location.search)
+  //   setParams({'city':query.get('city'), 'media':query.get('mediaType')})
+  // },[])
 
   // const myMarker = new L.Icon({
   //   iconUrl: icon,
@@ -32,24 +32,24 @@ const MyMap = (props) => {
   // const {location, cordinates} = props
   const cordinates = [22.99180142158226, 72.4865308522456]
   const location = 'Ahmedabad'
-  const  [markers, setMarkers] = useState([])
+  const [markers, setMarkers] = useState([])
 
-  useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/billboard/').then((res)=>{
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/billboard/').then((res) => {
       setMarkers(res.data)
       // console.log(markers)
-    }).catch((e)=>{
+    }).catch((e) => {
       console.log(e)
     })
-  },[])
+  }, [])
 
   return (
     <MapContainer
       center={cordinates}
       zoom={13}
       scrollWheelZoom={true}
-      style={{ height: '50vh', width: '100%' }}
-      
+      style={{ height: '65vh', width: '100%' }}
+
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -63,29 +63,28 @@ const MyMap = (props) => {
           // let lon = marker.cordinates.split(',')[1]
           // console.log(lat, lon)
           return (
-      <Marker position={[marker.lat, marker.lng]} key={index}>
-        <Popup>
-          <div className='d-grid  gap-2'>
-            
-            <div>
-          <img src={icon} width={'100%'}/>
+            <Marker position={[marker.lat, marker.lng]} key={index} >
+              <Popup>
+                <div className='d-grid  gap-2'>
 
-          </div>
-            <div>
-            <b> {marker.publisher.name} </b>
-            <p>
-            <p> <b> Type : </b>{marker.type.name} </p>
-            </p> 
-            <p> <b> Price :</b> ₹ {marker.price} </p>
-            <button className="btn btn-dark">Book</button>
-            </div>
-          </div>
-        </Popup>
-      </Marker>
+                  <div>
+                    <img src={icon} width={'100%'} />
+                  </div>
+                  <div>
+                    <b> {marker.publisher.name} </b>
+                    <p>
+                      <p> <b> Type : </b>{marker.type.name} </p>
+                    </p>
+                    <p> <b> Price :</b> ₹ {marker.price} </p>
+                    <button className="btn btn-dark">Book</button>
+                  </div>
+                </div>
+              </Popup>
+            </Marker>
           )
-      })
+        })
 
-    }
+      }
 
 
     </MapContainer>
