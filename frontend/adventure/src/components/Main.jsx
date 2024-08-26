@@ -28,7 +28,7 @@ const Main = () => {
             <Nav.Link href="/company">Company</Nav.Link>
             <Nav.Link href="/aboutus">About Us</Nav.Link>
             <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/signup">Signup</Nav.Link>
+            <Nav.Link href="/Signup">Signup</Nav.Link>
           </Nav>
         </Container>
         </Navbar>
@@ -39,6 +39,7 @@ const Main = () => {
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/map" element={<Map/>}></Route>
             <Route path="/Publisher" element={<Publisher/>}></Route>
+            <Route path="/Signup" element={<Signup/>}></Route>
         </Routes>
       </Router>
       
