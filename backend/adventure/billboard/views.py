@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+import json
 
 from . models import *
 from . serializer import *
@@ -51,6 +52,14 @@ class BillBoardView(APIView):
         for b in serializer.data:
             b['lat'] = b['coordinates'].split(',')[0]
             b['lng'] = b['coordinates'].split(',')[1]
+            
+            type_instance = billboard_type.objects.get(id=b['type'])
+            type_serializer = ReactBillBoardTypeSerializer(type_instance)
+            b['type'] = type_serializer.data
+            
+            publisher_instance = publishers.objects.get(id=b['publisher_id'])
+            publisher_serializer = ReactPublisherSerializer(publisher_instance)
+            b['publisher'] = publisher_serializer.data
         return Response(serializer.data)
 
     def post(self, request):
