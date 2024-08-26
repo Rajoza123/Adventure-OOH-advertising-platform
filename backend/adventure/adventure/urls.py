@@ -18,11 +18,17 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-from publisher.views import PublisherView
+from publisher.views import *
+from company.views import *
+from billboard.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('publisher/',PublisherView.as_view())
+    path('publisher/',PublisherView.as_view()),
+    path('company/',CompanyView.as_view()),
+    path('billtype/',BillboardTypeView.as_view()),
+    path('billboard/',BillBoardView.as_view()),
+    path('billxcomp/',BillxCompView.as_view()),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

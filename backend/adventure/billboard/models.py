@@ -18,10 +18,15 @@ class billboards(models.Model):
     def __str__(self):
         return self.area
     
-# class billxcomp(models.Model):
-#     id = models.AutoField(primary_key=True)
-#     billboard_id = models.ForeignKey("billboard.billboards", on_delete=models.CASCADE)
-#     company_id=models.ForeignKey("company.companies", on_delete=models.CASCADE)
+class billxcomp(models.Model):
+    id = models.AutoField(primary_key=True)
+    billboard_id = models.ForeignKey("billboard.billboards", on_delete=models.CASCADE)
+    company_id=models.ForeignKey("company.companies", on_delete=models.CASCADE)
+    booking_date = models.DateField(auto_now=False, auto_now_add=True)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    price = models.DecimalField( max_digits=7, decimal_places=2)
+        
     
 class billboard_type(models.Model):
     id = models.AutoField(primary_key=True)
