@@ -10,10 +10,9 @@ class CompanyView(APIView):
 	serializer_class = ReactCompanySerializer 
 
 	def get(self, request): 
-		detail = [ {'id' :pub.id,'name':pub.name,'email':pub.email,'password':pub.password,'contact':pub.contact}
-		for pub in companies.objects.all()] 
-
-		return Response(detail) 
+		company_list =  companies.objects.all()
+		serializer = self.serializer_class(company_list,many=True)
+		return Response(serializer.data) 
 
 	def post(self, request): 
 

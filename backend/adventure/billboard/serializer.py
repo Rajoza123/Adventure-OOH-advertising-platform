@@ -11,7 +11,7 @@ class CompanySerializer(serializers.ModelSerializer):
         model = companies
         fields = ('__all__')
         
-class ReactBillBoardTypeSerializer(serializers.ModelSerializer): 
+class ReactBillBoardTypeSerializer(serializers.ModelSerializer):
 	class Meta: 
 		model = billboard_type
 		fields = ('__all__')

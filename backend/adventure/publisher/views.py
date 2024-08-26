@@ -10,10 +10,9 @@ class PublisherView(APIView):
 	serializer_class = ReactPublisherSerializer 
 
 	def get(self, request): 
-		detail = [ {'id' :pub.id,'name':pub.name,'email':pub.email,'password':pub.password,'contact':pub.contact}
-		for pub in publishers.objects.all()] 
-
-		return Response(detail) 
+		publisher_list =  publishers.objects.all()
+		serializer = self.serializer_class(publisher_list,many=True)
+		return Response(serializer.data) 
 
 	def post(self, request): 
 
