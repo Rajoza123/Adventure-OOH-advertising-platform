@@ -26,9 +26,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('publisher/',PublisherView.as_view()),
     path('company/',CompanyView.as_view()),
+    path('company/<int:id>/',CompanyView.as_view()),
     path('billtype/',BillboardTypeView.as_view()),
     path('billboard/',BillBoardView.as_view()),
     path('billxcomp/',BillxCompView.as_view()),
+    path('signin/', CompanySignInView.as_view(), name='company-signin'),
+    path('profile/', CompanyProfileView.as_view(), name='company-profile'),
+    path('signout/', CompanySignOutView.as_view(), name='company-signout'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
