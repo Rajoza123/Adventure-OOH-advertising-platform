@@ -23,12 +23,12 @@ const Main = () => {
         <img src={logo} alt="no image " width={'200px'} id="logo" />
         <Container>
           <Nav className=" ms-auto">
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/Publisher">Publisher</Nav.Link>
-            <Nav.Link href="/company">Company</Nav.Link>
-            <Nav.Link href="/aboutus">About Us</Nav.Link>
-            <Nav.Link href="/login">Login</Nav.Link>
-            <Nav.Link href="/signup">Signup</Nav.Link>
+            <Nav.Link href="/" className="linkItem">Home</Nav.Link>
+            <Nav.Link href="/Publisher"  className="linkItem">Publisher</Nav.Link>
+            <Nav.Link href="/company"  className="linkItem">Company</Nav.Link>
+            <Nav.Link href="/aboutus"  className="linkItem">About Us</Nav.Link>
+            <Nav.Link href="/login"  className="linkItem">Login</Nav.Link>
+            <Nav.Link href="/signup"  className="linkItem">Signup</Nav.Link>
           </Nav>
         </Container>
         </Navbar>

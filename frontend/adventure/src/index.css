@@ -1,0 +1,25 @@
+*{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+}
+.carasolimg{
+    height: 100%;
+    aspect-ratio: 16/9;
+}
+.carasolcontainer{
+    height:80vh;
+    overflow: hidden;
+}
+/* .mapParaContainer{
+    background-image: url('./components/images/backMap.jpg');
+
+    padding:90px;
+} */
+
+.linkItem{
+    color: black;
+    margin-right: 0.5vw;
+    font-weight: bolder;
+}
