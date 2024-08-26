@@ -15,6 +15,8 @@ import Publisher_signup from "./publisher_signup"
 import '../App.css'
 
 import React from 'react'
+import CompanyProfile from "./CompanyProfile"
+import Logout from "./Logout"
 
 const Main = () => {
   return (
@@ -42,6 +44,8 @@ const Main = () => {
             <Route path="/Publisher" element={<Publisher/>}></Route>
             <Route path="/Signup" element={<Signup/>}></Route>
             <Route path="/Publisher_signup" element={<Publisher_signup/>}></Route>
+            <Route path="/company" element={<CompanyProfile/>}></Route>
+            <Route path="/logout" element={<Logout/>}></Route>
         </Routes>
       </Router>
       

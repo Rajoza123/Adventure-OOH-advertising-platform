@@ -1,8 +1,12 @@
 import React from 'react'
+import CompanyProfile from './CompanyProfile'
 
 const Company = () => {
   return (
-    <div>Company</div>
+    <div>Company
+
+      <CompanyProfile />
+    </div>
   )
 }
 

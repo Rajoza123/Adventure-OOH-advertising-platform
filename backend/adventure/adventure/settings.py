@@ -61,6 +61,29 @@ ROOT_URLCONF = 'adventure.urls'
 REST_FRAMEWORK = {'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.AllowAny']}
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Your React frontend origin
+    # Add other origins if needed
+]
+
+# Optional: If you need to allow credentials (cookies, authorization headers, etc.)
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ALLOWED_HEADERS = [
+    'content-type',
+    'authorization',
+    # Add other headers if needed
+]
+
+CORS_ALLOW_METHODS = [
+    'GET',
+    'POST',
+    'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
+]
+
 
 TEMPLATES = [
     {
