@@ -8,52 +8,49 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import {
+  MDBCard,
+  MDBCardBody,
+  MDBCardTitle,
+  MDBCardText,
+  MDBCardImage,
+  MDBBtn
+} from 'mdb-react-ui-kit';
+import { MDBCarousel, MDBCarouselItem, MDBCarouselCaption } from 'mdb-react-ui-kit';
+
 
 const CarouselComponent = () => {
   return (
-    <div style={{ width: '100%', height: '500px' }}>
-      <Carousel>
-        <Carousel.Item>
-          <img
-            className="d-block w-auto"
-            src={image1}
-            alt="First slide"
-            id='img'
+    <div>
+      {/* <div style={{ width: '100%', height: '500px' }}> */}
+      <MDBCarousel showIndicators showControls fade>
+      <MDBCarouselItem itemId={1}>
+        <img src='https://mdbootstrap.com/img/Photos/Slides/img%20(15).jpg' className='d-block w-100' alt='...' />
+        <MDBCarouselCaption>
+          <h5>First slide label</h5>
+          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+        </MDBCarouselCaption>
+      </MDBCarouselItem>
 
-          />
-          <Carousel.Caption>
-            <h3>First Slide Label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-auto"
-            src={image2}
-            alt="Second slide"
-            id='img'
-          />
-          <Carousel.Caption>
-            <h3>Second Slide Label</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-        <Carousel.Item>
-          <img
-            className="d-block w-auto"
-            src={image3}
-            alt="Third slide"
-            id='img'
-          />
-          <Carousel.Caption>
-            <h3>Third Slide Label</h3>
-            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
-      </Carousel>
+      <MDBCarouselItem itemId={2}>
+        <img src='https://mdbootstrap.com/img/Photos/Slides/img%20(22).jpg' className='d-block w-100' alt='...' />
+        <MDBCarouselCaption>
+          <h5>Second slide label</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </MDBCarouselCaption>
+      </MDBCarouselItem>
+
+      <MDBCarouselItem itemId={3}>
+        <img src='https://mdbootstrap.com/img/Photos/Slides/img%20(23).jpg' className='d-block w-100' alt='...' />
+        <MDBCarouselCaption>
+          <h5>Third slide label</h5>
+          <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+        </MDBCarouselCaption>
+      </MDBCarouselItem>
+    </MDBCarousel>
+      {/* </div> */}
       <div id="search">
         <Container>
-
           <Form>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
@@ -74,6 +71,28 @@ const CarouselComponent = () => {
             </Row>
           </Form>
         </Container>
+      </div>
+      <div className='d-flex'>
+      <MDBCard>
+        <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
+        <MDBCardBody>
+          <MDBCardTitle>Card title</MDBCardTitle>
+          <MDBCardText>
+            Some quick example text to build on the card title and make up the bulk of the card's content.
+          </MDBCardText>
+          <MDBBtn href='#'>Button</MDBBtn>
+        </MDBCardBody>
+      </MDBCard>
+      <MDBCard>
+        <MDBCardImage src='https://mdbootstrap.com/img/new/standard/nature/184.webp' position='top' alt='...' />
+        <MDBCardBody>
+          <MDBCardTitle>Card title</MDBCardTitle>
+          {/* <MDBCardText>
+            Some quick example text to build on the card title and make up the bulk of the card's content.
+          </MDBCardText> */}
+          <MDBBtn href='#'>Button</MDBBtn>
+        </MDBCardBody>
+      </MDBCard>
       </div>
     </div>
   );
