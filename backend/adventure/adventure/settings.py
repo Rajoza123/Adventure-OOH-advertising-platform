@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os
-
+import json as JSON
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -80,6 +80,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'adventure.wsgi.application'
 
+JSON.encoding = 'utf-8'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

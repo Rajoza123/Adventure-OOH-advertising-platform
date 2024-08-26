@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import { Carousel, Container } from 'react-bootstrap';
 import image1 from './images/large_formate_holdings.jpg';
 
@@ -21,10 +21,29 @@ import {
   MDBCardImage,
   MDBBtn
 } from 'mdb-react-ui-kit';
+import axios from 'axios'
 import { MDBCarousel, MDBCarouselItem, MDBCarouselCaption } from 'mdb-react-ui-kit';
 
 
 const CarouselComponent = () => {
+
+  const [types, setTypes] = useState([])
+  useEffect(()=>{
+    axios('http://127.0.0.1:8000/billtype/')
+    .then((res)=>{
+      setTypes(res.data)
+    }).catch((e)=>{
+      console.log(e)
+    })
+  },[])
+
+  const handleSubmit = ()=>{
+    const formData = document.forms['geoForm']
+    console.log(formData.city.value)
+    const city = formData.city.value
+    const mediaType = formData.mediaType.value
+    window.location.assign(`/Map?city=${city}&mediaType=${mediaType}`)
+  } 
   return (
     <div>
       {/* <div style={{ width: '100%', height: '500px' }}> */}
@@ -56,21 +75,26 @@ const CarouselComponent = () => {
       {/* </div> */}
       <div id="search">
         <Container className='mapParaContainer'>
-          <Form>
+          <Form name='geoForm'>
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Search for media</Form.Label>
-                <Form.Control type="text" placeholder="Enter Board Location for city" />
+                <Form.Control type="text" name='city' placeholder="Enter Board Location for city" />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Select Media Type</Form.Label>
-                <Form.Select defaultValue="Select Media Type">
-                  <option>Choose...</option>
-                  <option>...</option>
+                <Form.Select defaultValue="Select Media Type"  name='mediaType'>
+
+                  <option> - Select the board type - </option>
+                  {
+                    types.map((type, index) => {
+                      return <option key={index} value={type.name}>{type.name}</option>
+                      })
+                  }
                 </Form.Select>
               </Form.Group>
-              <Button as={Col} variant="primary" type="submit">
+              <Button as={Col} variant="primary" type="button" onClick={handleSubmit}>
                 Submit
               </Button>
 
@@ -79,15 +103,23 @@ const CarouselComponent = () => {
         </Container>
       </div>
       <MDBRow className="g-5">
-      <MDBCol xs="12" md="6" lg="3">
-        <MDBCard className="h-100">
-          <MDBCardImage src={image1} alt="Card 1" position="top" />
-          <MDBCardBody className="d-flex justify-content-center">
-            <MDBBtn className="w-100">Large_formate_holdings</MDBBtn>
-          </MDBCardBody>
-        </MDBCard>
-      </MDBCol>
-      <MDBCol xs="12" md="6" lg="3">
+      {
+
+        types.map((val, index)=>{
+          return(
+            <MDBCol xs="12" md="6" lg="3"  key={index}>
+
+              <MDBCard className="h-100">
+                <MDBCardImage src={image1} alt="Card 1" position="top" />
+                <MDBCardBody className="d-flex justify-content-center">
+                  <MDBBtn className="w-100">{val.name}</MDBBtn>
+                </MDBCardBody>
+              </MDBCard>
+            </MDBCol>
+          )
+        })
+      }
+      {/* <MDBCol xs="12" md="6" lg="3">
         <MDBCard className="h-100">
           <MDBCardImage src="https://via.placeholder.com/300x200" alt="Card 2" position="top" />
           <MDBCardBody className="d-flex justify-content-center">
@@ -126,7 +158,7 @@ const CarouselComponent = () => {
             <MDBBtn className="w-100">Button 6</MDBBtn>
           </MDBCardBody>
         </MDBCard>
-      </MDBCol>
+      </MDBCol> */}
     </MDBRow>
     </div>
   );

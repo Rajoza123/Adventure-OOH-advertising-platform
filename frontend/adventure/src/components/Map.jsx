@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
@@ -16,8 +16,11 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const MyMap = (props) => {
-
-  
+    const [params,  setParams] = React.useState({city:'', media:''})
+    useEffect(()=>{
+      const query = new URLSearchParams(window.location.search)
+      setParams({'city':query.get('city'), 'media':query.get('mediaType')})
+    },[])
   // const {location, cordinates} = props
   const cordinates = [22.99180142158226, 72.4865308522456]
   const location = 'Ahmedabad'
@@ -27,6 +30,7 @@ const MyMap = (props) => {
       zoom={13}
       scrollWheelZoom={true}
       style={{ height: '50vh', width: '100%' }}
+      
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -34,7 +38,7 @@ const MyMap = (props) => {
       />
       <Marker position={cordinates}>
         <Popup>
-          {location}
+          {location} - {params.city} - {params.media}
         </Popup>
       </Marker>
     </MapContainer>
