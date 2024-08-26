@@ -33,9 +33,9 @@ function Signup() {
               <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
 
               <MDBBtn size='lg'>
-                Login
+                Signup
               </MDBBtn>
-
+            <a href="/Publisher_signup" className='text-primary'>signup as Publisher</a>
               <hr className="my-4" />
 
               <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>

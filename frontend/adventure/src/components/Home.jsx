@@ -1,8 +1,7 @@
 import React from 'react';
 import { Carousel, Container } from 'react-bootstrap';
 import image1 from './images/large_formate_holdings.jpg';
-import image2 from './images/download2.jpeg';
-import image3 from './images/pexels-freestockpro-1031700.jpg';
+
 import '../App.css'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';

@@ -11,6 +11,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import logo from '../assets/output-onlinegiftools.gif'
+import Publisher_signup from "./publisher_signup"
 import '../App.css'
 
 import React from 'react'
@@ -40,6 +41,7 @@ const Main = () => {
             <Route path="/map" element={<Map/>}></Route>
             <Route path="/Publisher" element={<Publisher/>}></Route>
             <Route path="/Signup" element={<Signup/>}></Route>
+            <Route path="/Publisher_signup" element={<Publisher_signup/>}></Route>
         </Routes>
       </Router>
       
