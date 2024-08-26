@@ -9,6 +9,12 @@
    height: 500px;
 }
 #search{
-   background-color: red;
+   background-color:white;
    padding: 30px;
+}
+#cards{
+   display: flex;
+   flex-direction: row;
+   height: 400px;
+   width: 500px;
 }
