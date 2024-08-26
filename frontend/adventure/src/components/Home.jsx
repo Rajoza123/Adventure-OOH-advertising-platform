@@ -112,7 +112,7 @@ const CarouselComponent = () => {
               <MDBCard className="h-100">
                 <MDBCardImage src={'http://127.0.0.1:8000/'+val.image} alt="Card 1" position="top" />
                 <MDBCardBody className="d-flex justify-content-center">
-                  <MDBBtn className="w-100">{val.name}</MDBBtn>
+                  <button className="w-100 btn btn-primary">{val.name} </button>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
