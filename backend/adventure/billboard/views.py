@@ -48,6 +48,9 @@ class BillBoardView(APIView):
     def get(self, request):
         billboards_list = billboards.objects.all()
         serializer = self.serializer_class(billboards_list, many=True)
+        for b in serializer.data:
+            b['lat'] = b['coordinates'].split(',')[0]
+            b['lng'] = b['coordinates'].split(',')[1]
         return Response(serializer.data)
 
     def post(self, request):
