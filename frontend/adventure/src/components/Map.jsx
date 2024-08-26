@@ -17,11 +17,11 @@ let DefaultIcon = L.icon({
 L.Marker.prototype.options.icon = DefaultIcon;
 
 const MyMap = (props) => {
-    const [params,  setParams] = React.useState({city:'', media:''})
-    useEffect(()=>{
-      const query = new URLSearchParams(window.location.search)
-      setParams({'city':query.get('city'), 'media':query.get('mediaType')})
-    },[])
+    // const [params,  setParams] = React.useState({city:'', media:''})
+    // useEffect(()=>{
+    //   const query = new URLSearchParams(window.location.search)
+    //   setParams({'city':query.get('city'), 'media':query.get('mediaType')})
+    // },[])
 
   // const myMarker = new L.Icon({
   //   iconUrl: icon,
@@ -32,7 +32,7 @@ const MyMap = (props) => {
   // const {location, cordinates} = props
   const cordinates = [22.99180142158226, 72.4865308522456]
   const location = 'Ahmedabad'
-  const  [markers, setMarkers] = useState([23])
+  const  [markers, setMarkers] = useState([])
 
   useEffect(()=>{
     axios.get('http://127.0.0.1:8000/billboard/').then((res)=>{
@@ -58,12 +58,12 @@ const MyMap = (props) => {
 
       {
         markers.map((marker, index) => {
-          console.log(marker.coordinates)
+          // console.log(marker.coordinates)
           // let lat = marker.cordinates.split(',')[0]
           // let lon = marker.cordinates.split(',')[1]
           // console.log(lat, lon)
           return (
-      <Marker position={[22.991920, 72.486619]} key={index}>
+      <Marker position={[marker.lat, marker.lng]} key={index}>
         <Popup>
           <div className='d-grid  gap-2'>
             
@@ -72,11 +72,12 @@ const MyMap = (props) => {
 
           </div>
             <div>
-            <b> {params.city} </b>
+            <b> {marker.publisher.name} </b>
             <p>
-            {params.media}
+            <p> <b> Type : </b>{marker.type.name} </p>
             </p> 
-
+            <p> <b> Price :</b> ₹ {marker.price} </p>
+            <button className="btn btn-dark">Book</button>
             </div>
           </div>
         </Popup>
