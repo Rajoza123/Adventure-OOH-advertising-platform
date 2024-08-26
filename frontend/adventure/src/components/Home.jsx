@@ -79,14 +79,14 @@ const CarouselComponent = () => {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Search for media</Form.Label>
-                <Form.Control type="text" name='city' placeholder="Enter Board Location for city" />
+                <Form.Control type="text" name='city' placeholder="Enter Board Location for city" defaultValue={'ahmedabad'} />
               </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Select Media Type</Form.Label>
                 <Form.Select defaultValue="Select Media Type"  name='mediaType'>
 
-                  <option> - Select the board type - </option>
+                  <option defaultValue={'Kiosk'}> - Select the board type - </option>
                   {
                     types.map((type, index) => {
                       return <option key={index} value={type.name}>{type.name}</option>
