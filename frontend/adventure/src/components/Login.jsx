@@ -39,7 +39,7 @@ function Login() {
 
               <hr className="my-4" />
               <div className='container'>
-                <p >Login as <a className='text-primary' onClick={()=> setCurrentUser(currentUser == 'publisher'? "company" : "publisher")}>{currentUser == 'publisher'? "Company" : "Publisher"}? </a></p>
+                <p >Login as <a className='text-primary form-link' onClick={()=> setCurrentUser(currentUser == 'publisher'? "company" : "publisher")}>{currentUser == 'publisher'? "Company" : "Publisher"}? </a></p>
               </div>
               <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
                 <MDBIcon fab icon="google" className="mx-2"/>
