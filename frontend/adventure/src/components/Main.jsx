@@ -24,10 +24,10 @@ const Main = () => {
         <Container>
           <Nav className=" ms-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="Publisher/">Publisher</Nav.Link>
+            <Nav.Link href="/Publisher">Publisher</Nav.Link>
             <Nav.Link href="#pricing">Company</Nav.Link>
             <Nav.Link href="#pricing">About Us</Nav.Link>
-            <Nav.Link href="#pricing">Login</Nav.Link>
+            <Nav.Link href="/Login">Login</Nav.Link>
             <Nav.Link href="#pricing">Signup</Nav.Link>
           </Nav>
         </Container>
