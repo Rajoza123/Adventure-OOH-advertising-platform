@@ -28,7 +28,11 @@ function CompanyProfile() {
     //     fetchProfileData();
     // }, []);
     useEffect(()=>{
-        axios('http://127.0.0.1:8000/profile/')
+        axios('http://127.0.0.1:8000/profile/',{
+            headers: {
+                'Authorization': localStorage.getItem('token'), // Adjust according to your auth mechanism
+            },
+        })
         .then((res)=>{
             console.log(res)
           setProfileData(res.data)
@@ -46,7 +50,7 @@ function CompanyProfile() {
                     <p><strong>Name:</strong> {profileData.name}</p>
                     <p><strong>Email:</strong> {profileData.email}</p>
                     <p><strong>Contact:</strong> {profileData.contact}</p>
-                    <img src={profileData.image} alt="Profile" style={{ maxWidth: '200px' }} />
+                    <img src={'http://127.0.0.1:8000/'+profileData.image} alt="Profile" style={{ maxWidth: '200px' }} />
                 </div>
             ) : (
                 <p>Loading...</p>

@@ -10,8 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@mui/x-date-pickers": "^7.14.0",
+    "@mui/x-date-pickers-pro": "^7.14.0",
+    "adventure": "file:",
     "axios": "^1.7.5",
     "bootstrap": "^5.3.3",
+    "dayjs": "^1.11.13",
     "jquery": "^3.7.1",
     "leaflet": "^1.9.4",
     "mdb-react-ui-kit": "^8.0.0",

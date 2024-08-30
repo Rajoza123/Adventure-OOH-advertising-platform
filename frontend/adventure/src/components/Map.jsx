@@ -4,9 +4,11 @@ import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import '../App.css'
 import icon from './images/ad.jpg'
-// Fix for default marker icon issue
+
 import markerIcon from 'leaflet/dist/images/marker-icon.png';
 import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import axios from 'axios';
 
 let DefaultIcon = L.icon({
@@ -80,6 +82,7 @@ const MyMap = (props) => {
                   </div>
                 </div>
               </Popup>
+              
             </Marker>
           )
         })
@@ -88,6 +91,7 @@ const MyMap = (props) => {
 
 
     </MapContainer>
+
   );
 };
 

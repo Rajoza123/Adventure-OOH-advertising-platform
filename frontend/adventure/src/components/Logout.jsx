@@ -15,7 +15,7 @@ function Logout() {
                 localStorage.removeItem('token');
                 localStorage.removeItem('company_id');
                 localStorage.removeItem('company_name');
-                localStorage.setItem('is_authenticated', false);
+                localStorage.removeItem('is_authenticated');
 
                 // Redirect to sign-in page
                 window.location.href = '/';

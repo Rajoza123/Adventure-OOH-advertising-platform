@@ -19,6 +19,8 @@ import CompanyProfile from "./CompanyProfile"
 import Logout from "./Logout"
 
 const Main = () => {
+
+  const authenticated = window.localStorage.is_authenticated
   return (
     <div>
       <Router>
@@ -30,8 +32,14 @@ const Main = () => {
             <Nav.Link href="/Publisher"  className="linkItem">Publisher</Nav.Link>
             <Nav.Link href="/company"  className="linkItem">Company</Nav.Link>
             <Nav.Link href="/aboutus"  className="linkItem">About Us</Nav.Link>
-            <Nav.Link href="/login"  className="linkItem">Login</Nav.Link>
-            <Nav.Link href="/signup"  className="linkItem">Signup</Nav.Link>
+            { !authenticated && <> 
+              <Nav.Link href="/login"  className="linkItem">Login</Nav.Link>
+              <Nav.Link href="/signup"  className="linkItem">Signup</Nav.Link>
+            </>}
+            { authenticated && <> 
+              <Nav.Link href="/logout"  className="linkItem">Logout</Nav.Link>
+              
+            </>}
           </Nav>
         </Container>
         </Navbar>
