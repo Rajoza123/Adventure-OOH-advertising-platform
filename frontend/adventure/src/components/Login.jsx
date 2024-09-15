@@ -13,10 +13,10 @@ function Login() {
     const form = document.forms['signin']
     formdata.append('email', form.email.value)
     formdata.append('password', form.password.value)
-
+    let api = currentUser == "publisher"? "pub_singin" : "comp_signin"
 
     try {
-              const response = await axios.post('http://127.0.0.1:8000/comp_signin/', formdata, {
+              const response = await axios.post(`http://127.0.0.1:8000/${api}/`, formdata, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -61,6 +61,10 @@ function Login() {
                 Login
               </Button>
 
+              <p className="small mb-3">
+                <a className="text-white-50" onClick={()=> currentUser == "publisher"? setCurrentUser("company"): setCurrentUser("publisher")}>Login as a {currentUser == 'publisher'? currentUser : 'company'}?</a>
+              </p>
+
               <div className="d-flex flex-row justify-content-center mb-5">
                 <Button variant="link" className="text-white p-2">
                   <Facebook size={28} />
@@ -74,7 +78,7 @@ function Login() {
               </div>
               </form>
               <p className="mb-0">
-                Don't have an account? <a href="#!" className="text-white-50 fw-bold">Sign Up</a>
+                Don't have an account? <a href="/signup" className="text-white-50 fw-bold">Sign Up</a>
               </p>
             </Card.Body>
           </Card>

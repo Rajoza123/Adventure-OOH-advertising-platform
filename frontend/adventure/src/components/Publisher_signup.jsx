@@ -63,7 +63,7 @@ function Publisher_signup() {
               </p>
 
               <p className="mb-0">
-                Already have an account? <a href="#!" className="text-white-50 fw-bold">Login</a>
+                Already have an account? <a href="/login" className="text-white-50 fw-bold">Login</a>
               </p>
             </Card.Body>
           </Card>
