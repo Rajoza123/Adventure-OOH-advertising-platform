@@ -30,9 +30,12 @@ urlpatterns = [
     path('billtype/',BillboardTypeView.as_view()),
     path('billboard/',BillBoardView.as_view()),
     path('billxcomp/',BillxCompView.as_view()),
-    path('signin/', CompanySignInView.as_view(), name='company-signin'),
-    path('profile/', CompanyProfileView.as_view(), name='company-profile'),
-    path('signout/', CompanySignOutView.as_view(), name='company-signout'),
+    path('comp_signin/', CompanySignInView.as_view(), name='company-signin'),
+    path('comp_profile/', CompanyProfileView.as_view(), name='company-profile'),
+    path('comp_signout/', CompanySignOutView.as_view(), name='company-signout'),
+    path('pub_signin/', PublisherSignInView.as_view(), name='company-signin'),
+    path('pub_profile/', PublisherProfileView.as_view(), name='company-profile'),
+    path('pub_signout/', PublsiherSignOutView.as_view(), name='company-signout'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

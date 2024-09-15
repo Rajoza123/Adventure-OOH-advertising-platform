@@ -16,12 +16,12 @@ class PublisherSignInSerializer(serializers.Serializer):
         email = data.get('email')
         password = data.get('password')
         try:
-            company = publishers.objects.get(email=email)
+            publisher = publishers.objects.get(email=email)
         except publishers.DoesNotExist:
             raise serializers.ValidationError("Invalid email or password.")
 
-        if not check_password(password, company.password):
+        if not check_password(password, publisher.password):
             raise serializers.ValidationError("Invalid email or password.")
 
-        data['company'] = company
+        data['publisher'] = publisher
         return data
