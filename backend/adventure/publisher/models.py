@@ -1,6 +1,6 @@
 from django.db import models
-from django.core.serializers.json import DjangoJSONEncoder
-import json
+import uuid
+from datetime import datetime, timedelta, timezone
 
 # Create your models here.
 
@@ -21,11 +21,26 @@ class publishers(models.Model):
             'image_url': self.image.url if self.image else None,
         }
 
-    def to_json(self):
-        return json.dumps(self.to_dict(), cls=DjangoJSONEncoder)
-    
     def __str__(self):
         return self.name
-
     
+class PublisherAuthToken(models.Model):
+    user = models.OneToOneField(publishers, on_delete=models.CASCADE)
+    token = models.CharField(max_length=40, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def save(self, *args, **kwargs):
+        if not self.token:
+            self.token = uuid.uuid4().hex
+        return super().save(*args, **kwargs)
+
+    def is_valid(self):
+    # Token valid for 1 hour
+        now = datetime.now(timezone.utc)
+        created_at_aware = self.created_at.replace(tzinfo=timezone.utc)
+        return created_at_aware >= now - timedelta(hours=1)
+
+    def __str__(self):
+        return f'Token for {self.user.id}'
+
     

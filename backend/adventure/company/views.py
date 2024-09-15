@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework import status
 from . models import *
 from . serializer import *
-from .models import CompanyAuthToken
+
 
 
 # Create your views here. 

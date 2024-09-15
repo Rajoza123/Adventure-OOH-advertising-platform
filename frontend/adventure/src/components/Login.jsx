@@ -1,187 +1,57 @@
-// import React, {useState} from 'react';
-// import {
-//   MDBBtn,
-//   MDBContainer,
-//   MDBRow,
-//   MDBCol,
-//   MDBCard,
-//   MDBCardBody,
-//   MDBInput,
-//   MDBIcon,
-//   MDBCheckbox
-// }
-// from 'mdb-react-ui-kit';
-// import axios from 'axios';
+import React from 'react';
+import { Button, Container, Row, Col, Card, Form } from 'react-bootstrap';
+import { Facebook, Twitter, Google } from 'react-bootstrap-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-// function Login() {
-  
-//   const [currentUser, setCurrentUser] = useState('publisher')
+function Login() {
+  return (
+    <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
+      <Row className="d-flex justify-content-center align-items-center h-100">
+        <Col md={6} lg={12}>
+          <Card className="bg-dark text-white my-5 mx-auto" style={{ borderRadius: '1rem', maxWidth: '500px' }}>
+            <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
+              <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
+              <p className="text-white-50 mb-5">Please enter your login and password!</p>
 
-//   const handleSubmit = ()=>{
-//     const formdata = new FormData()
-//     const form = document.forms['signin']
-//     formdata.append('email', form.email.value)
-//     formdata.append('password', form.password.value)
+              <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
+              </Form.Group>
 
-//     // axios.post('http://localhost:8000/signin/',formdata)
-//     // .then((res)=>{
-//     //   console.log(res)
-//     // }).catch((e)=>{
-//     //   console.log(e)
-//     // })
+              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Enter password" className="bg-dark text-white" />
+              </Form.Group>
 
-//     axios.post('http://127.0.0.1:8000/signin/', formdata)
-//     .then((response) => {
-//       console.log(response);
-//       // Handle successful sign-in response
-//     })
-//     .catch((error) => {
-      
-//       console.error(error);
-//     });
-//   } 
-  
-//   return (
-//     <MDBContainer fluid>
+              <p className="small mb-3">
+                <a className="text-white-50" href="#!">Forgot password?</a>
+              </p>
 
-//       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-//         <MDBCol col='12'>
+              <Button variant="outline-light" size="lg" className="mb-4">
+                Login
+              </Button>
 
-//           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-//             <MDBCardBody className='p-5 w-100 d-flex flex-column'>
+              <div className="d-flex flex-row justify-content-center mb-5">
+                <Button variant="link" className="text-white p-2">
+                  <Facebook size={28} />
+                </Button>
+                <Button variant="link" className="text-white p-2">
+                  <Twitter size={28} />
+                </Button>
+                <Button variant="link" className="text-white p-2">
+                  <Google size={28} />
+                </Button>
+              </div>
 
-//               <h2 className="fw-bold mb-2 text-center">Sign in</h2>
-//               <p className="text-white-50 mb-3">Please enter your login and password!</p>
-//               <form name='signin'>
-
-//               <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg" name='email'/>
-//               <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg" name='password'/>
-
-//               <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
-
-//               <button type='button' className='btn btn-primary' size='lg' onClick={handleSubmit}>
-//                 Login
-//               </button>
-//               </form>
-
-
-//               <hr className="my-4" />
-//               <div className='container'>
-//                 <p >Login as <a className='text-primary form-link' onClick={()=> setCurrentUser(currentUser == 'publisher'? "company" : "publisher")}>{currentUser == 'publisher'? "Company" : "Publisher"}? </a></p>
-//               </div>
-//               <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-//                 <MDBIcon fab icon="google" className="mx-2"/>
-//                 Sign in with google
-//               </MDBBtn>
-
-//               <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-//                 <MDBIcon fab icon="facebook-f" className="mx-2"/>
-//                 Sign in with facebook
-//               </MDBBtn>
-
-//             </MDBCardBody>
-//           </MDBCard>
-
-//         </MDBCol>
-//       </MDBRow>
-
-//     </MDBContainer>
-//   );
-// }
-
-// export default Login;
-
-import  {useState} from 'react';
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBCard,
-  MDBCardBody,
-  MDBInput,
-  MDBIcon,
-  MDBCheckbox
-}
-from 'mdb-react-ui-kit';
-import axios from 'axios';
-
-function SignIn() {
-
-      const [currentUser, setCurrentUser] = useState('publisher')
-
-  const handleSubmit = async ()=>{
-    const formdata = new FormData()
-    const form = document.forms['signin']
-    formdata.append('email', form.email.value)
-    formdata.append('password', form.password.value)
-
-
-    try {
-              const response = await axios.post('http://127.0.0.1:8000/signin/', formdata, {
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-    
-                // Handle successful sign-in
-                localStorage.setItem('company_id', response.data.id);
-                localStorage.setItem('company_name', response.data.name);
-                localStorage.setItem('is_authenticated', true);
-                localStorage.setItem('token',response.data.token)
-    
-                // Redirect to a different page, e.g., dashboard
-                window.location.href = '/company';
-            } catch (error) {
-                alert(error)
-            }
-
-  } 
-
-    return (
-        <MDBContainer fluid>
-
-       <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-         <MDBCol col='12'>
-
-           <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-             <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-
-               <h2 className="fw-bold mb-2 text-center">Sign in</h2>
-               <p className="text-white-50 mb-3">Please enter your login and password!</p>
-               <form name='signin'>
-
-               <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg" name='email'/>
-               <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg" name='password'/>
-
-               <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
-               <button type='button' className='btn btn-primary' size='lg' onClick={handleSubmit}>
-                 Login
-               </button>
-               </form>
-
-
-               <hr className="my-4" />
-               <div className='container'>
-                 <p >Login as <a className='text-primary form-link' onClick={()=> setCurrentUser(currentUser == 'publisher'? "company" : "publisher")}>{currentUser == 'publisher'? "Company" : "Publisher"}? </a></p>
-               </div>
-               <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-                 <MDBIcon fab icon="google" className="mx-2"/>
-                 Sign in with google
-               </MDBBtn>
-               <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-                 <MDBIcon fab icon="facebook-f" className="mx-2"/>
-                 Sign in with facebook
-               </MDBBtn>
-
-             </MDBCardBody>
-           </MDBCard>
-
-         </MDBCol>
-       </MDBRow>
-
-     </MDBContainer>
-    );
+              <p className="mb-0">
+                Don't have an account? <a href="#!" className="text-white-50 fw-bold">Sign Up</a>
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
 }
 
-export default SignIn;
+export default Login;
