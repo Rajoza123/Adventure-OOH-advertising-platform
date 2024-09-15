@@ -1,63 +1,76 @@
-import React from 'react'
-import {
-    MDBBtn,
-    MDBContainer,
-    MDBRow,
-    MDBCol,
-    MDBCard,
-    MDBCardBody,
-    MDBInput,
-    MDBIcon,
-    MDBCheckbox
-  }
-  from 'mdb-react-ui-kit';
-  
-  function Publisher_signup() {
-    return (
-      <MDBContainer fluid>
-  
-        <MDBRow className='d-flex justify-content-center align-items-center h-100'>
-          <MDBCol col='12'>
-  
-            <MDBCard className='bg-white my-5 mx-auto' style={{borderRadius: '1rem', maxWidth: '500px'}}>
-              <MDBCardBody className='p-5 w-100 d-flex flex-column'>
-  
-                <h2 className="fw-bold mb-2 text-center">Sign Up</h2>
-                <p className="text-white-50 mb-3">Please enter your login and password!</p>
-                <MDBInput wrapperClass='mb-4 w-100' label='Name' id='formControlLg' type='text' size="lg"/>
-                <MDBInput wrapperClass='mb-4 w-100' label='Email address' id='formControlLg' type='email' size="lg"/>
-                <MDBInput wrapperClass='mb-4 w-100' label='Password' id='formControlLg' type='password' size="lg" maxLength={10}/>
-                <MDBInput wrapperClass='mb-4 w-100' label='Contact No.' id='formControlLg' type='number' size="lg"/>
-                <MDBInput wrapperClass='mb-4 w-100' label='Image' id='formControlLg' type='file' size="lg"/>
-  
-                <MDBCheckbox name='flexCheck' id='flexCheckDefault' className='mb-4' label='Remember password' />
-  
-                <MDBBtn size='lg'>
-                  Login
-                </MDBBtn>
-                <a href="/signup" className='text-primary'>signup as Company</a>
-  
-                <hr className="my-4" />
-  
-                <MDBBtn className="mb-2 w-100" size="lg" style={{backgroundColor: '#dd4b39'}}>
-                  <MDBIcon fab icon="google" className="mx-2"/>
-                  Sign in with google
-                </MDBBtn>
-  
-                <MDBBtn className="mb-4 w-100" size="lg" style={{backgroundColor: '#3b5998'}}>
-                  <MDBIcon fab icon="facebook-f" className="mx-2"/>
-                  Sign in with facebook
-                </MDBBtn>
-  
-              </MDBCardBody>
-            </MDBCard>
-  
-          </MDBCol>
-        </MDBRow>
-  
-      </MDBContainer>
-    );
-  }
-  
+import React from 'react';
+import { Button, Container, Row, Col, Card, Form } from 'react-bootstrap';
+import { Facebook, Twitter, Google } from 'react-bootstrap-icons';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-export default Publisher_signup
+function Publisher_signup() {
+  return (
+    <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
+      <Row className="d-flex justify-content-center align-items-center h-100">
+        <Col md={6} lg={12}>
+          <Card className="bg-dark text-white my-5 mx-auto" style={{ borderRadius: '1rem', maxWidth: '500px' }}>
+            <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
+              <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
+              <p className="text-white-50 mb-5">Please enter your details to create an account!</p>
+
+              {/* Full Name */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicName">
+                <Form.Label>Full Name</Form.Label>
+                <Form.Control type="text" placeholder="Enter your name" className="bg-dark text-white" />
+              </Form.Group>
+
+              {/* Email Address */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
+                <Form.Label>Email address</Form.Label>
+                <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
+              </Form.Group>
+
+              {/* Password */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+                <Form.Label>Contact</Form.Label>
+                <Form.Control type="number" placeholder="Enter password" className="bg-dark text-white" />
+              </Form.Group>
+
+              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+                <Form.Label>Image</Form.Label>
+                <Form.Control type="file" placeholder="Enter password" className="bg-dark text-white" />
+              </Form.Group>
+
+              {/* Confirm Password */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicConfirmPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm password" className="bg-dark text-white" />
+              </Form.Group>
+
+              <Button variant="outline-light" size="lg" className="mb-4">
+                Sign Up
+              </Button>
+
+              <div className="d-flex flex-row justify-content-center mb-5">
+                <Button variant="link" className="text-white p-2">
+                  <Facebook size={28} />
+                </Button>
+                <Button variant="link" className="text-white p-2">
+                  <Twitter size={28} />
+                </Button>
+                <Button variant="link" className="text-white p-2">
+                  <Google size={28} />
+                </Button>
+              </div>
+
+              <p className="mb-0">
+                Signup as company <a href="/Signup" className="text-white-50 fw-bold">Signup</a>
+              </p>
+
+              <p className="mb-0">
+                Already have an account? <a href="#!" className="text-white-50 fw-bold">Login</a>
+              </p>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+    </Container>
+  );
+}
+
+export default  Publisher_signup;

@@ -6,27 +6,7 @@ function CompanyProfile() {
     const [profileData, setProfileData] = useState([]);
     const [errorMessage, setErrorMessage] = useState('');
 
-    // useEffect(() => {
-    //     // Fetch profile data on component mount
-    //     const fetchProfileData = async () => {
-    //         try {
-    //             axios.get('http://127.0.0.1:8000/profile', {
-    //                 // headers: {
-    //                 //     'Authorization': localStorage.getItem('token'), // Adjust according to your auth mechanism
-    //                 // },
-    //             }).then((response)=>{
-    //                 console.log(response)
-    //                 setProfileData(response.data);
-    //             })
-    //         }    
-    //             catch (error) {
-    //                 console.log(error)
-    //             setErrorMessage('Failed to fetch profile data.');
-    //         }
-    //     };
-
-    //     fetchProfileData();
-    // }, []);
+    
     useEffect(()=>{
         axios('http://127.0.0.1:8000/profile/',{
             headers: {
