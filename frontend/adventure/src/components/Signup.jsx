@@ -48,6 +48,7 @@ function Signup() {
                 <Form.Control type="text" placeholder="Enter your name" name='name' className="bg-dark text-white" />
               </Form.Group>
 
+
               {/* Email Address */}
               <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
