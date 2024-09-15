@@ -35,6 +35,7 @@ import {
                 <MDBBtn size='lg'>
                   Login
                 </MDBBtn>
+                <a href="/signup" className='text-primary'>signup as Company</a>
   
                 <hr className="my-4" />
   

@@ -128,8 +128,8 @@ function SignIn() {
                 localStorage.setItem('company_id', response.data.id);
                 localStorage.setItem('company_name', response.data.name);
                 localStorage.setItem('is_authenticated', true);
-                localStorage.setItem('token',response.data.token)
-    
+                localStorage.setItem('token',response.data.token);
+
                 // Redirect to a different page, e.g., dashboard
                 window.location.href = '/company';
             } catch (error) {
