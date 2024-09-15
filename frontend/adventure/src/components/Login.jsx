@@ -4,6 +4,38 @@ import { Facebook, Twitter, Google } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
+<<<<<<< HEAD
+=======
+
+  const [currentUser, setCurrentUser] = useState('publisher')
+
+  const handleSubmit = async ()=>{
+    const formdata = new FormData()
+    const form = document.forms['signin']
+    formdata.append('email', form.email.value)
+    formdata.append('password', form.password.value)
+    let api = currentUser == "publisher"? "pub_singin" : "comp_signin"
+
+    try {
+              const response = await axios.post(`http://127.0.0.1:8000/${api}/`, formdata, {
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+    
+                // Handle successful sign-in
+                localStorage.setItem('company_id', response.data.id);
+                localStorage.setItem('company_name', response.data.name);
+                localStorage.setItem('is_authenticated', true);
+                localStorage.setItem('token',response.data.token);
+
+                // Redirect to a different page, e.g., dashboard
+                window.location.href = '/company';
+            } catch (error) {
+                alert(error)
+    }
+}
+>>>>>>> parent of 3f0108c (Revert "login links set successfully")
   return (
     <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
       <Row className="d-flex justify-content-center align-items-center h-100">
@@ -31,6 +63,10 @@ function Login() {
                 Login
               </Button>
 
+              <p className="small mb-3">
+                <a className="text-white-50" onClick={()=> currentUser == "publisher"? setCurrentUser("company"): setCurrentUser("publisher")}>Login as a {currentUser == 'publisher'? currentUser : 'company'}?</a>
+              </p>
+
               <div className="d-flex flex-row justify-content-center mb-5">
                 <Button variant="link" className="text-white p-2">
                   <Facebook size={28} />
@@ -44,7 +80,7 @@ function Login() {
               </div>
 
               <p className="mb-0">
-                Don't have an account? <a href="#!" className="text-white-50 fw-bold">Sign Up</a>
+                Don't have an account? <a href="/signup" className="text-white-50 fw-bold">Sign Up</a>
               </p>
             </Card.Body>
           </Card>

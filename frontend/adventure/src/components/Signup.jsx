@@ -5,7 +5,6 @@ import axios  from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Signup() {
-<<<<<<< HEAD
   const[data,setdata] = useState({})
 
   const handlesubmit = () => {
@@ -33,8 +32,6 @@ function Signup() {
       console.log(err);
     });
   };
-=======
->>>>>>> parent of 692a939 ("Updated company model to make email unique, added login and signup functionality to frontend, and modified database")
   return (
     <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
       <Row className="d-flex justify-content-center align-items-center h-100">
@@ -42,12 +39,8 @@ function Signup() {
           <Card className="bg-dark text-white my-5 mx-auto" style={{ borderRadius: '1rem', maxWidth: '500px' }}>
             <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
               <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
-<<<<<<< HEAD
-              <p className="text-white-50 mb-5">Please enter your details to create an account!</p>   
-=======
+              <p className="text-white-50 mb-5">Please enter your details to create an account!</p> 
               <p className="text-white-50 mb-5">Please enter your details to create an account!</p>
-
->>>>>>> parent of 692a939 ("Updated company model to make email unique, added login and signup functionality to frontend, and modified database")
               {/* Full Name */}
               <Form.Group className="mb-4 w-100" controlId="formBasicName">
                 <Form.Label>Full Name</Form.Label>
