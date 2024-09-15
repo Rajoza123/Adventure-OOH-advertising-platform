@@ -6,7 +6,7 @@ import axios from 'axios';
 
 function Login() {
 
-  const [currentUser, setCurrentUser] = useState('publisher')
+  const [currentUser, setCurrentUser] = useState('company')
 
   const handleSubmit = async ()=>{
     const formdata = new FormData()
@@ -16,7 +16,7 @@ function Login() {
     let api = currentUser == "publisher"? "pub_singin" : "comp_signin"
 
     try {
-              const response = await axios.post(`http://127.0.0.1:8000/${api}/`, formdata, {
+              const response = await axios.post(`http://127.0.0.1:8000/comp_signin/`, formdata, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
