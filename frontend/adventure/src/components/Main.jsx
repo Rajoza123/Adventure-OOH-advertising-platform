@@ -19,6 +19,7 @@ import '../App.css'
 import React from 'react'
 import CompanyProfile from "./CompanyProfile"
 import Logout from "./Logout"
+import BillBoardList from "./BillBoardList"
 
 const Main = () => {
 
@@ -26,13 +27,19 @@ const Main = () => {
   return (
     <div>
       <Router>
+        
         <Navbar bg="primary" data-bs-theme="black" >
         <img src={logo} alt="no image " width={'200px'} id="logo" />
         <Container>
           <Nav className=" ms-auto">
             <Nav.Link href="/" className="linkItem">Home</Nav.Link>
-            <Nav.Link href="/Publisher"  className="linkItem">Publisher</Nav.Link>
-            <Nav.Link href="/company"  className="linkItem">Company</Nav.Link>
+            { 
+              (authenticated && localStorage.getItem("publisher_id")) && <Nav.Link href="/Publisher"  className="linkItem">Publisher</Nav.Link>
+            }
+            { 
+              (authenticated && localStorage.getItem("company_id")) && <Nav.Link href="/company"  className="linkItem">Company</Nav.Link>
+            }
+            
             <Nav.Link href="/aboutus"  className="linkItem">About Us</Nav.Link>
             { !authenticated && <> 
               <Nav.Link href="/login"  className="linkItem">Login</Nav.Link>
@@ -65,6 +72,7 @@ const Main = () => {
             <Route path="/company" element={<CompanyProfile/>}></Route>
             <Route path="/logout" element={<Logout/>}></Route>
             <Route path="/pdash" element={<Publisher_Dashboard/>}></Route>
+            <Route path="/billboards" element={<BillBoardList/>}></Route>
         </Routes>
       </Router>
       

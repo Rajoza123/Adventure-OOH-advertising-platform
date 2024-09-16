@@ -40,7 +40,8 @@ export default function Dashboard() {
   const [profileData, setProfileData] = useState([]);
   const [errorMessage, setErrorMessage] = useState('');
 
-  
+  let company = {}
+
   useEffect(()=>{
       axios('http://127.0.0.1:8000/comp_profile/',{
           headers: {
@@ -49,7 +50,7 @@ export default function Dashboard() {
       })
       .then((res)=>{
           console.log(res)
-        setProfileData(res.data)
+          setProfileData(res.data)
       }).catch((e)=>{
         console.log(e)
       })
@@ -61,25 +62,22 @@ export default function Dashboard() {
           <Row>
             <Col md={3} className="bg-white sidebar p-3">
               <div className="d-flex align-items-center mb-4">
-                <div className="bg-primary text-white p-2 rounded me-2">SP</div>
-                <h4 className="mb-0">Salepol</h4>
+                <div className="bg-primary text-white p-2 rounded me-2"> {profileData.name.slice(0,2)} </div>
+                <h4 className="mb-0">{ profileData.name}</h4>
               </div>
               <Nav className="flex-column">
                 <Nav.Link className="d-flex align-items-center">
                   <span className="me-2">📊</span> Dashboard
                 </Nav.Link>
 
-                <NavDropdown title="Billboards" id="billboards-dropdown">
-              <NavDropdown.Item href="#add-billboard">Add Billboard</NavDropdown.Item>
-              <NavDropdown.Item href="#remove-billboard">Remove Billboard</NavDropdown.Item>
-              <NavDropdown.Item href="#update-billboard">Update Billboard</NavDropdown.Item>
-              <NavDropdown.Item href="#list-billboards">List of All Billboards</NavDropdown.Item>
-            </NavDropdown>
-
-
                 <Nav.Link className="d-flex align-items-center">
-                  <span className="me-2">🛒</span> Clients
+                  <span className="me-2">🗺</span> BillBoards
                 </Nav.Link>
+
+
+                {/* <Nav.Link className="d-flex align-items-center">
+                  <span className="me-2">🛒</span> Events
+                </Nav.Link> */}
                 <Nav.Link className="d-flex align-items-center">
                   <span className="me-2">📝</span> Notifications
                 </Nav.Link>
@@ -95,17 +93,6 @@ export default function Dashboard() {
                   <ChevronDown className="ms-2" />
                 </div>
               </div>
-              <InputGroup className="mb-3">
-                <InputGroup.Text>
-                  <Search size={18} />
-                </InputGroup.Text>
-                <Form.Control
-                  type="text"
-                  placeholder="Search..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
-              </InputGroup>
               <Row>
                 <Col md={4}>
                   <Card className="mb-4">
@@ -119,7 +106,7 @@ export default function Dashboard() {
                 <Col md={4}>
                   <Card className="mb-4">
                     <Card.Body>
-                      <Card.Title>Avg. Order Value</Card.Title>
+                      <Card.Title>Currently Occupied</Card.Title>
                       <h3>$56.12</h3>
                       <small className="text-danger">↓ 2.15%</small>
                     </Card.Body>
@@ -128,7 +115,7 @@ export default function Dashboard() {
                 <Col md={4}>
                   <Card className="mb-4">
                     <Card.Body>
-                      <Card.Title>Total Orders</Card.Title>
+                      <Card.Title>Total BillBoards</Card.Title>
                       <h3>230</h3>
                       <small className="text-success">↑ 2.15%</small>
                     </Card.Body>
@@ -173,15 +160,15 @@ export default function Dashboard() {
               </Row>
               <Card className="mb-4">
                 <Card.Body>
-                  <Card.Title>Top Products</Card.Title>
+                  <Card.Title>Top BillBoards</Card.Title>
                   <Table responsive>
                     <thead>
                       <tr>
-                        <th>Product</th>
-                        <th >Revenue</th>
-                        <th>Sales</th>
-                        <th>Reviews</th>
-                        <th>Views</th>
+                        <th>BillBoard</th>
+                        <th >Area</th>
+                        <th>Locality</th>
+                        <th>Avg. Viewers</th>
+                        <th>Estimated Revenue</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -199,7 +186,7 @@ export default function Dashboard() {
                 </Card.Body>
               </Card>
              
-            <Card className="mb-4">
+            {/* <Card className="mb-4">
               <Card.Body>
                 <Card.Title>Active users in countries</Card.Title>
                 <h3>7,269</h3>
@@ -223,7 +210,7 @@ export default function Dashboard() {
                   </div>
                 ))}
               </Card.Body>
-            </Card>
+            </Card> */}
 
       </Col>
       </Row>
