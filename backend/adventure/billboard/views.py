@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-import json
 
+from publisher.models import PublisherAuthToken
 from . models import *
 from . serializer import *
 # Create your views here.
@@ -44,26 +44,53 @@ class BillboardTypeView(APIView):
 
 class BillBoardView(APIView):
 
-    serializer_class = ReactBillBoardSerializer
+	serializer_class = ReactBillBoardSerializer
 
-    def get(self, request):
-        billboards_list = billboards.objects.all()
-        serializer = self.serializer_class(billboards_list, many=True)
-        for b in serializer.data:
-            b['lat'] = b['coordinates'].split(',')[0]
-            b['lng'] = b['coordinates'].split(',')[1]
-            
-            type_instance = billboard_type.objects.get(id=b['type'])
-            type_serializer = ReactBillBoardTypeSerializer(type_instance)
-            b['type'] = type_serializer.data
-            
-            publisher_instance = publishers.objects.get(id=b['publisher_id'])
-            publisher_serializer = ReactPublisherSerializer(publisher_instance)
-            b['publisher'] = publisher_serializer.data
-        return Response(serializer.data)
+	def get(self, request):
+		billboards_list = billboards.objects.all()
+		serializer = self.serializer_class(billboards_list, many=True)
+		for b in serializer.data:
+			b['lat'] = b['coordinates'].split(',')[0]
+			b['lng'] = b['coordinates'].split(',')[1]
+			
+			type_instance = billboard_type.objects.get(id=b['type'])
+			type_serializer = ReactBillBoardTypeSerializer(type_instance)
+			b['type'] = type_serializer.data
+			
+			publisher_instance = publishers.objects.get(id=b['publisher_id'])
+			publisher_serializer = ReactPublisherSerializer(publisher_instance)
+			b['publisher'] = publisher_serializer.data
+		return Response(serializer.data)
 
-    def post(self, request):
-        serializer = ReactBillBoardSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+	def post(self, request):
+		token = request.headers.get('Authorization')
+
+		# Check if token is provided
+		if not token:
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+		try:
+			# Retrieve auth token and publisher
+			auth_token = PublisherAuthToken.objects.get(token=token)
+			if not auth_token.is_valid():
+				return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+
+			publisher = publishers.objects.get(id=auth_token.user.id)
+		except PublisherAuthToken.DoesNotExist:
+			return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		except publishers.DoesNotExist:
+			return Response({'error': 'Publisher not found'}, status=status.HTTP_404_NOT_FOUND)
+
+		# Modify the request data to inject publisher_id
+		request_data = request.data.copy()
+		request_data['publisher_id'] = publisher.id
+
+		# Pass modified data to the serializer
+		serializer = ReactBillBoardSerializer(data=request_data)
+
+		# Validate and save the data
+		if serializer.is_valid(raise_exception=True):
+			serializer.save()
+			return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

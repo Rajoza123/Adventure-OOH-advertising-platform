@@ -13,7 +13,7 @@ class publishers(models.Model):
     image = models.ImageField(upload_to='publisher/image')
 
     def __str__(self):
-        return self.email
+        return self.name
     
 class PublisherAuthToken(models.Model):
     user = models.OneToOneField(publishers, on_delete=models.CASCADE)

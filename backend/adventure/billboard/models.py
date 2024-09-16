@@ -13,7 +13,7 @@ class billboards(models.Model):
     height = models.IntegerField()
     width = models.IntegerField()
     num_of_boards = models.IntegerField()
-    image = models.ImageField(upload_to='billboard/image')
+    image = models.ImageField(upload_to='billboard/image',null=True)
     
     def __str__(self):
         return self.area

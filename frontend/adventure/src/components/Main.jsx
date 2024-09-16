@@ -14,6 +14,7 @@ import Image from 'react-bootstrap/Image'
 import logo from '../assets/output-onlinegiftools.gif'
 import Publisher_signup from "./Publisher_signup"
 import Publisher_Dashboard from './Publisher_Dashboard'
+import AddBillboard from './AddBillboard'
 import '../App.css'
 
 import React from 'react'
@@ -73,6 +74,7 @@ const Main = () => {
             <Route path="/logout" element={<Logout/>}></Route>
             <Route path="/pdash" element={<Publisher_Dashboard/>}></Route>
             <Route path="/billboards" element={<BillBoardList/>}></Route>
+            <Route path="/addbill" element={<AddBillboard/>}></Route>
         </Routes>
       </Router>
       
