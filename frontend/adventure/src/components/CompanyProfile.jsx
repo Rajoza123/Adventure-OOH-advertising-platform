@@ -62,7 +62,7 @@ export default function Dashboard() {
           <Row>
             <Col md={3} className="bg-white sidebar p-3">
               <div className="d-flex align-items-center mb-4">
-                <div className="bg-primary text-white p-2 rounded me-2"> {profileData.name.slice(0,2)} </div>
+                <div className="bg-primary text-white p-2 rounded me-2"> {profileData.name && profileData.name.slice(0,2)} </div>
                 <h4 className="mb-0">{ profileData.name}</h4>
               </div>
               <Nav className="flex-column">
@@ -85,11 +85,11 @@ export default function Dashboard() {
             </Col>
             <Col md={9} className="ms-sm-auto px-md-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 className="h2">Welcome Back Brandon</h1>
+                <h1 className="h2">Dashboard </h1>
                 <div className="d-flex align-items-center">
                   <Bell className="me-3" />
                   <img src="/placeholder.svg?height=40&width=40" alt="User" className="rounded-circle" />
-                  <span className="ms-2">Brandon Rosser</span>
+                  <span className="ms-2"></span>
                   <ChevronDown className="ms-2" />
                 </div>
               </div>

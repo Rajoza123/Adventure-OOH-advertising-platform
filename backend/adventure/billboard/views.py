@@ -67,8 +67,8 @@ class BillBoardView(APIView):
 
 		# Check if token is provided
 		if not token:
-			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
-
+			# return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+			return Response("fffffff")
 		try:
 			# Retrieve auth token and publisher
 			auth_token = PublisherAuthToken.objects.get(token=token)
@@ -89,8 +89,10 @@ class BillBoardView(APIView):
 		serializer = ReactBillBoardSerializer(data=request_data)
 
 		# Validate and save the data
-		if serializer.is_valid(raise_exception=True):
-			serializer.save()
-			return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		try:
+			if serializer.is_valid(raise_exception=True):
+				serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+		except serializers.ValidationError as e:
+			print(e)  # Log serializer errors
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
