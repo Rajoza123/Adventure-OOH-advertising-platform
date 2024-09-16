@@ -5,7 +5,7 @@ function Logout() {
     useEffect(() => {
         const handleLogout = async () => {
             try {
-                await axios.post('http://localhost:8000/signout/', {}, {
+                await axios.post('http://localhost:8000/comp_signout/', {}, {
                     headers: {
                         'Authorization': localStorage.getItem('token'), // Adjust according to your auth mechanism
                     },

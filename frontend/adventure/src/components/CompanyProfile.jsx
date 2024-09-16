@@ -8,7 +8,7 @@ function CompanyProfile() {
 
     
     useEffect(()=>{
-        axios('http://127.0.0.1:8000/profile/',{
+        axios('http://127.0.0.1:8000/comp_profile/',{
             headers: {
                 'Authorization': localStorage.getItem('token'), // Adjust according to your auth mechanism
             },

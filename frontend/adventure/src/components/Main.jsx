@@ -12,8 +12,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image'
 import logo from '../assets/output-onlinegiftools.gif'
+<<<<<<< HEAD
 import Publisher_signup from "./publisher_signup"
 import Publisher_Dashboard from './Publisher_Dashboard'
+=======
+import Publisher_signup from "./Publisher_signup"
+>>>>>>> 885cf5c6db69f249a19fd0d0c51790bf672ffe02
 import '../App.css'
 
 import React from 'react'
@@ -40,14 +44,14 @@ const Main = () => {
             </>}
             { authenticated && <> 
               <Nav.Link href="/logout"  className="linkItem">Logout</Nav.Link>
-              <Nav.Link onClick={handleImageClick} className="d-flex align-items-center">
+              {/* <Nav.Link onClick={handleImageClick} className="d-flex align-items-center">
                 <Image
                   src={userImageUrl} // URL of the profile image
                   roundedCircle
                   style={{ width: '40px', height: '40px', cursor: 'pointer' }}
                   alt="Profile"
                 />
-              </Nav.Link>
+              </Nav.Link> */}
               
             </>}
           </Nav>
