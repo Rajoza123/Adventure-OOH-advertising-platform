@@ -10,6 +10,18 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 function Publisher_Dashboard() {
 
   useEffect(()=>{
+    if(window.localStorage.getItem("is_authenticated")){
+      if(!window.localStorage.getItem("publisher_id")){
+        alert("Unauthorized Access")
+        window.location.assign("/")
+      }
+    }else{
+      alert("Unauthorized Access")
+      window.location.assign("/")
+    }
+  })
+
+  useEffect(()=>{
     if(window.location.pathname.toLowerCase() == "/publisher" || window.location.pathname.toLowerCase() == "/publisher/")
       window.location.assign("/publisher/dashboard")
   })
