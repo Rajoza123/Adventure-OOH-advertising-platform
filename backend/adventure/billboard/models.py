@@ -26,8 +26,8 @@ class billxcomp(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     price = models.DecimalField( max_digits=7, decimal_places=2)
-        
-    
+    file = models.FileField(upload_to='billboard/file',null=True)    
+
 class billboard_type(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
