@@ -30,7 +30,9 @@ function Signup() {
     })
     .catch((err) => {
       console.log(err);
+// eslint-disable-next-line no-irregular-whitespace
     });
+// eslint-disable-next-line no-irregular-whitespace
   };
   return (
     <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
