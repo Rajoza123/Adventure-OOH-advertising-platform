@@ -11,11 +11,23 @@ import logo from '../assets/output-onlinegiftools.gif'
 const Company = () => {
   
   const [profileData, setProfileData] = useState([]);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('')  ;
 
   useEffect(()=>{
     if(window.location.pathname.toLowerCase() == "/company" || window.location.pathname.toLowerCase() == "/company/")
       window.location.assign("/company/dashboard")
+  })
+
+  useEffect(()=>{
+    if(window.localStorage.getItem("is_authenticated")){
+      if(!window.localStorage.getItem("company_id")){
+        alert("Unauthorized Access")
+        window.location.assign("/")
+      }
+    }else{
+      alert("Unauthorized Access")
+      window.location.assign("/")
+    }
   })
 
   useEffect(()=>{
