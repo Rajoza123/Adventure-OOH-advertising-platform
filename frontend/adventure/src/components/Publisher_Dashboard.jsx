@@ -48,7 +48,7 @@ function Publisher_Dashboard() {
               Billboard
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/add-billboard">Add Billboard</Dropdown.Item>
+              <Dropdown.Item href="http://localhost:5173/addbill">Add Billboard</Dropdown.Item>
               <Dropdown.Item href="#/delete-billboard">Delete Billboard</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
