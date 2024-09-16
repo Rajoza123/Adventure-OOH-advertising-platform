@@ -13,10 +13,10 @@ function Login() {
     const form = document.forms['signin']
     formdata.append('email', form.email.value)
     formdata.append('password', form.password.value)
-    let api = currentUser == "publisher"? "pub_singin" : "comp_signin"
+    let api = currentUser == "publisher"? "pub_signin" : "comp_signin"
 
     try {
-              const response = await axios.post(`http://127.0.0.1:8000/comp_signin/`, formdata, {
+              const response = await axios.post(`http://127.0.0.1:8000/${api}/`, formdata, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -41,8 +41,8 @@ return (
         <Col md={6} lg={12}>
           <Card className="bg-dark text-white my-5 mx-auto" style={{ borderRadius: '1rem', maxWidth: '500px' }}>
             <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
-              <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
-              <p className="text-white-50 mb-5">Please enter your login and password!</p>
+              <h2 className="fw-bold mb-2 text-uppercase">Login </h2>
+              <p className="text-white-50 mb-5" style={{textTransform:'uppercase'}}>{currentUser} login</p>
               <form name='signin'>
               <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
@@ -64,7 +64,7 @@ return (
               </form>
 
               <p className="small mb-3">
-                <a className="text-white-50" onClick={()=> currentUser == "publisher"? setCurrentUser("company"): setCurrentUser("publisher")}>Login as a {currentUser == 'publisher'? currentUser : 'company'}?</a>
+                <a className="text-white-50" onClick={()=> currentUser == "publisher"? setCurrentUser("company"): setCurrentUser("publisher")}>Login as a {currentUser == 'publisher'? 'company' : 'publisher'}?</a>
               </p>
 
               <div className="d-flex flex-row justify-content-center mb-5">
