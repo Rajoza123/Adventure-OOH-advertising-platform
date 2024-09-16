@@ -7,22 +7,13 @@ from datetime import datetime, timedelta, timezone
 class publishers(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=254)
+    email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=100)
     contact = models.IntegerField()
     image = models.ImageField(upload_to='publisher/image')
-    
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'name': self.name,
-            'email': self.email,
-            'contact': self.contact,
-            'image_url': self.image.url if self.image else None,
-        }
 
     def __str__(self):
-        return self.name
+        return self.email
     
 class PublisherAuthToken(models.Model):
     user = models.OneToOneField(publishers, on_delete=models.CASCADE)
