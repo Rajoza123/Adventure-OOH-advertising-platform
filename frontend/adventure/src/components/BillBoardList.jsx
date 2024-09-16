@@ -8,7 +8,7 @@ const BillBoardList = () => {
   const bookings = [
     {
       id: 1,
-      date: { day: "Wed", number: 28 },
+      date: 28,
       time: "09:00 - 09:30",
       title: "30min call meeting Peer <> Leslie",
       location: "Online",
@@ -45,9 +45,6 @@ const BillBoardList = () => {
               <Nav.Link eventKey="upcoming">Upcoming</Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link eventKey="pending">Pending</Nav.Link>
-            </Nav.Item>
-            <Nav.Item>
               <Nav.Link eventKey="recurring">Recurring</Nav.Link>
             </Nav.Item>
             <Nav.Item>
@@ -64,13 +61,13 @@ const BillBoardList = () => {
                   {bookings.map((booking) => (
                     <tr key={booking.id}>
                       <td className="text-center" style={{ width: '60px' }}>
-                        <div className="fs-4 fw-bold text-danger">{booking.date.number}</div>
-                        <div className="text-muted">{booking.date.day}</div>
+                        <div className="fs-4 fw-bold text-danger">{booking.date}</div>
+                        <div className="text-muted">{booking.date}</div>
                       </td>
                       <td>
                         <div className="d-flex align-items-center mb-1">
                           <Clock className="me-1" />
-                          <small className="text-muted">{booking.time}</small>
+                          <small className="text-muted">{booking.date}</small>
                         </div>
                         <div className="fw-bold">{booking.title}</div>
                         <div className="d-flex align-items-center mt-1">
