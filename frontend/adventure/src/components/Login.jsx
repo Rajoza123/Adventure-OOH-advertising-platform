@@ -77,7 +77,7 @@ function Login() {
 								</Button>
 
 								<p className="small mb-3">
-									<a className="text-white-50" onClick={changeUser}>Login as a {currentUser} </a>
+									<a className="text-white-50" onClick={changeUser}>Login as a {currentUser=='publisher'?'Company':'Publisher'} </a>
 								</p>
 
 								<div className="d-flex flex-row justify-content-center mb-5">

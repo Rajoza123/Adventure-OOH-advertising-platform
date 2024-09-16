@@ -126,8 +126,8 @@ function Publisher_signup() {
               </div>
 
               <p className="mb-0">
-                Signup as publisher{" "}
-                <a href="/Publisher_signup" className="text-white-50 fw-bold">
+                Signup as Company{" "}
+                <a href="/signup" className="text-white-50 fw-bold">
                   Signup
                 </a>
               </p>
