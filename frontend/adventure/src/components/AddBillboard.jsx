@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, useMapEvents, Marker, Popup } from 'react-leaflet';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'leaflet/dist/leaflet.css';
 import axios from 'axios';
@@ -45,6 +45,17 @@ function AddBillboard() {
             images
         });
     };
+    const MapClickHandler = () => {
+        useMapEvents({
+          click: (e) => {
+            setCoordinates({
+                lat: e.latlng.lat,
+                lng: e.latlng.lng,
+              });
+          },
+        });
+        return null;
+      };
 
     return (
         <Container fluid>
@@ -55,7 +66,8 @@ function AddBillboard() {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
-                        <Marker position={[coordinates.lat, coordinates.lng]}>
+                         <MapClickHandler />
+                        <Marker position={[coordinates.lat,coordinates.lng]}>
                             <Popup>
                                 {coordinates.lat}, {coordinates.lng}
                             </Popup>
