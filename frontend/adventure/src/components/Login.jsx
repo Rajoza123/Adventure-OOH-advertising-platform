@@ -37,13 +37,13 @@ function Login() {
 				localStorage.setItem('company_name', response.data.name);
 				localStorage.setItem('is_authenticated', true);
 				localStorage.setItem('token', response.data.token);
-				window.location.href = '/company';
+				window.location.href = '/company/dashboard';
 			} else {
 				localStorage.setItem('publisher_id', response.data.id);
 				localStorage.setItem('publisher_name', response.data.name);
 				localStorage.setItem('is_authenticated', true);
 				localStorage.setItem('token', response.data.token);
-				window.location.href = '/publisher';
+				window.location.href = '/publisher/dashboard';
 			}
 		} catch (error) {
 			alert(error)

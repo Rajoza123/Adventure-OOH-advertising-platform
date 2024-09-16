@@ -36,96 +36,54 @@ function Publisher_Dashboard() {
   };
 
   return (
-    <Container fluid>
-      <Row>
-        {/* Sidebar */}
-        <Col md={3} className="bg-light p-3">
-          <h4>Admin Panel</h4>
+    <Col md={9} className="p-3">
+<h4>Dashboard</h4>
 
-          {/* Billboard Dropdown */}
-          <Dropdown className="mb-3">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Billboard
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="http://localhost:5173/addbill">Add Billboard</Dropdown.Item>
-              <Dropdown.Item href="#/delete-billboard">Delete Billboard</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+{/* Statistical Values */}
+<Row className="mb-4">
+  <Col md={3}>
+    <Card className="text-center">
+      <Card.Body>
+        <Card.Title>Total Billboards</Card.Title>
+        <Card.Text>120</Card.Text>
+      </Card.Body>
+    </Card>
+  </Col>
+  <Col md={3}>
+    <Card className="text-center">
+      <Card.Body>
+        <Card.Title>Active Customers</Card.Title>
+        <Card.Text>45</Card.Text>
+      </Card.Body>
+    </Card>
+  </Col>
+  <Col md={3}>
+    <Card className="text-center">
+      <Card.Body>
+        <Card.Title>Total Orders</Card.Title>
+        <Card.Text>87</Card.Text>
+      </Card.Body>
+    </Card>
+  </Col>
+  <Col md={3}>
+    <Card className="text-center">
+      <Card.Body>
+        <Card.Title>Revenue</Card.Title>
+        <Card.Text>$120,000</Card.Text>
+      </Card.Body>
+    </Card>
+  </Col>
+</Row>
 
-          {/* Customer Dropdown */}
-          <Dropdown className="mb-3">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Customer
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/customer1">Company 1</Dropdown.Item>
-              <Dropdown.Item href="#/customer2">Company 2</Dropdown.Item>
-              <Dropdown.Item href="#/customer3">Company 3</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-
-          {/* Orders Dropdown */}
-          <Dropdown className="mb-3">
-            <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Orders
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/recent-orders">Recent Orders</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </Col>
-
-        {/* Main Content Section */}
-        <Col md={9} className="p-3">
-          <h4>Dashboard</h4>
-
-          {/* Statistical Values */}
-          <Row className="mb-4">
-            <Col md={3}>
-              <Card className="text-center">
-                <Card.Body>
-                  <Card.Title>Total Billboards</Card.Title>
-                  <Card.Text>120</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="text-center">
-                <Card.Body>
-                  <Card.Title>Active Customers</Card.Title>
-                  <Card.Text>45</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="text-center">
-                <Card.Body>
-                  <Card.Title>Total Orders</Card.Title>
-                  <Card.Text>87</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col md={3}>
-              <Card className="text-center">
-                <Card.Body>
-                  <Card.Title>Revenue</Card.Title>
-                  <Card.Text>$120,000</Card.Text>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-
-          {/* Line Chart Section */}
-          <Card>
-            <Card.Body>
-              <Card.Title>Sales Overview</Card.Title>
-              <Line data={data} options={options} />
-            </Card.Body>
-          </Card>
-        </Col>
-      </Row>
-    </Container>
+{/* Line Chart Section */}
+<Card>
+  <Card.Body>
+    <Card.Title>Sales Overview</Card.Title>
+    <Line data={data} options={options} />
+  </Card.Body>
+</Card>
+</Col>
+ 
   );
 }
 

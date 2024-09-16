@@ -21,6 +21,8 @@ import React from 'react'
 import CompanyProfile from "./CompanyProfile"
 import Logout from "./Logout"
 import BillBoardList from "./BillBoardList"
+import Company from "./Company"
+import Notification from "./Notification"
 
 const Main = () => {
 
@@ -29,7 +31,7 @@ const Main = () => {
     <div>
       <Router>
         
-        <Navbar bg="primary" data-bs-theme="black" >
+        <Navbar bg="primary" data-bs-theme="black" style={{zIndex:2}} >
         <img src={logo} alt="no image " width={'200px'} id="logo" />
         <Container>
           <Nav className=" ms-auto">
@@ -67,10 +69,17 @@ const Main = () => {
             <Route path="/contactus" element={<Contact/>}></Route>
             <Route path="/login" element={<Login/>}></Route>
             <Route path="/map" element={<Map/>}></Route>
-            <Route path="/Publisher" element={<Publisher/>}></Route>
+            <Route path="/Publisher" element={<Publisher/>}>
+                <Route path="dashboard" element={<Publisher_Dashboard />} />
+                <Route path="addbillboard" element={<AddBillboard />} />
+            </Route>
             <Route path="/Signup" element={<Signup/>}></Route>
             <Route path="/Publisher_signup" element={<Publisher_signup/>}></Route>
-            <Route path="/company" element={<CompanyProfile/>}></Route>
+            <Route path="/company" element={<Company/>}>
+                <Route path="dashboard" index={true} element={<CompanyProfile />}></Route>
+                <Route path="billboard" element={<BillBoardList />}></Route>
+                <Route path="notification" element={<Notification />}></Route>
+            </Route>
             <Route path="/logout" element={<Logout/>}></Route>
             <Route path="/pdash" element={<Publisher_Dashboard/>}></Route>
             <Route path="/billboards" element={<BillBoardList/>}></Route>

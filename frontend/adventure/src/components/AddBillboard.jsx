@@ -15,6 +15,7 @@ function AddBillboard() {
     const [height, setHeight] = useState('');
     const [price, setPrice] = useState('');
     const [num_board, setNumBoards] = useState('');
+    let markerPosition = {'lat':23.0225, 'lng':72.5714}
 
     useEffect(() => {
         // Fetch billboard types from Django API

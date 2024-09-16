@@ -57,41 +57,10 @@ export default function Dashboard() {
     },[])
 
   return (
+    <>
 
-        <Container fluid className="bg-light min-vh-100">
-          <Row>
-            <Col md={3} className="bg-white sidebar p-3">
-              <div className="d-flex align-items-center mb-4">
-                <div className="bg-primary text-white p-2 rounded me-2"> {profileData.name && profileData.name.slice(0,2)} </div>
-                <h4 className="mb-0">{ profileData.name}</h4>
-              </div>
-              <Nav className="flex-column">
-                <Nav.Link className="d-flex align-items-center">
-                  <span className="me-2">📊</span> Dashboard
-                </Nav.Link>
-
-                <Nav.Link className="d-flex align-items-center">
-                  <span className="me-2">🗺</span> BillBoards
-                </Nav.Link>
-
-
-                {/* <Nav.Link className="d-flex align-items-center">
-                  <span className="me-2">🛒</span> Events
-                </Nav.Link> */}
-                <Nav.Link className="d-flex align-items-center">
-                  <span className="me-2">📝</span> Notifications
-                </Nav.Link>
-              </Nav>
-            </Col>
-            <Col md={9} className="ms-sm-auto px-md-4">
               <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                 <h1 className="h2">Dashboard </h1>
-                <div className="d-flex align-items-center">
-                  <Bell className="me-3" />
-                  <img src="/placeholder.svg?height=40&width=40" alt="User" className="rounded-circle" />
-                  <span className="ms-2"></span>
-                  <ChevronDown className="ms-2" />
-                </div>
               </div>
               <Row>
                 <Col md={4}>
@@ -106,8 +75,8 @@ export default function Dashboard() {
                 <Col md={4}>
                   <Card className="mb-4">
                     <Card.Body>
-                      <Card.Title>Currently Occupied</Card.Title>
-                      <h3>$56.12</h3>
+                      <Card.Title>Currently Acquired</Card.Title>
+                      <h3>90</h3>
                       <small className="text-danger">↓ 2.15%</small>
                     </Card.Body>
                   </Card>
@@ -168,7 +137,7 @@ export default function Dashboard() {
                         <th >Area</th>
                         <th>Locality</th>
                         <th>Avg. Viewers</th>
-                        <th>Estimated Revenue</th>
+                        <th>Estimated Viewers</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -212,8 +181,6 @@ export default function Dashboard() {
               </Card.Body>
             </Card> */}
 
-      </Col>
-      </Row>
-      </Container>
+    </>
   )
 }
