@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Login() {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
   const [currentUser, setCurrentUser] = useState('publisher')
@@ -36,6 +37,8 @@ function Login() {
     }
 }
 >>>>>>> parent of 3f0108c (Revert "login links set successfully")
+=======
+>>>>>>> parent of 692a939 ("Updated company model to make email unique, added login and signup functionality to frontend, and modified database")
   return (
     <Container fluid className="vh-100 d-flex justify-content-center align-items-center">
       <Row className="d-flex justify-content-center align-items-center h-100">

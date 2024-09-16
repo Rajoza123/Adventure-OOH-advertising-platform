@@ -45,21 +45,28 @@ function Signup() {
               <Form.Group className="mb-4 w-100" controlId="formBasicName">
                 <Form.Label>Full Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter your name" className="bg-dark text-white" />
+                <Form.Control type="text" placeholder="Enter your name" className="bg-dark text-white" />
               </Form.Group>
 
               {/* Email Address */}
               <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
                 <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
+                <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
               </Form.Group>
 
               {/* Password */}
               <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+              {/* Password */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
                 <Form.Label>Contact</Form.Label>
+                <Form.Control type="number" placeholder="Enter password" className="bg-dark text-white" />
                 <Form.Control type="number" placeholder="Enter password" className="bg-dark text-white" />
               </Form.Group>
 
               <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+                <Form.Label>Image</Form.Label>
+                <Form.Control type="file" placeholder="Enter password" className="bg-dark text-white" />
                 <Form.Label>Image</Form.Label>
                 <Form.Control type="file" placeholder="Enter password" className="bg-dark text-white" />
               </Form.Group>
@@ -68,11 +75,18 @@ function Signup() {
               <Form.Group className="mb-4 w-100" controlId="formBasicConfirmPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" placeholder="Confirm password" className="bg-dark text-white" />
+
+              {/* Confirm Password */}
+              <Form.Group className="mb-4 w-100" controlId="formBasicConfirmPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm password" className="bg-dark text-white" />
               </Form.Group>
 
               <Button variant="outline-light" size="lg" className="mb-4">
+              <Button variant="outline-light" size="lg" className="mb-4">
                 Sign Up
               </Button>
+
 
               <div className="d-flex flex-row justify-content-center mb-5">
                 <Button variant="link" className="text-white p-2">
