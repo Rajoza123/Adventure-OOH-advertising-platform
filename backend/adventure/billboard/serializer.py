@@ -17,11 +17,17 @@ class ReactBillBoardTypeSerializer(serializers.ModelSerializer):
 		fields = ('__all__')
 
 class ReactBillBoardSerializer(serializers.ModelSerializer):
+
 	class Meta: 
 		model = billboards
 		fields = ('__all__')
-	# publisher_id = ReactPublisherSerializer(read_only=True)
-	# type = ReactBillBoardTypeSerializer(read_only=True)
+	
+	# def create(self, validated_data):
+	# 	# Extract the publisher from validated_data
+	# 	publisher = validated_data.pop('publisher', None)
+	# 	# Create the billboard object, passing the publisher explicitly
+	# 	return billboards.objects.create(publisher_id=publisher.id, **validated_data)
+	
  	
 
 class ReactBillxCompSerializer(serializers.ModelSerializer): 
@@ -29,4 +35,4 @@ class ReactBillxCompSerializer(serializers.ModelSerializer):
 	# company_id = CompanySerializer(read_only=True)
 	class Meta: 
 		model = billxcomp
-		fields = ('__all__') 
+		fields = ('__all__')

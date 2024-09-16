@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('company', '0002_companyauthtoken'),
+        ('billboard', '0004_alter_billboards_image'),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='companies',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True),
+            model_name='billboards',
+            name='image',
+            field=models.ImageField(null=True, upload_to='billboard/image'),
         ),
     ]

@@ -6,7 +6,7 @@ from datetime import datetime, timedelta, timezone
 class companies(models.Model):
     id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=100)
-    email = models.EmailField(max_length=254,unique=True)
+    email = models.EmailField(max_length=254, unique=True)
     password = models.CharField(max_length=100)
     contact = models.IntegerField()
     image = models.ImageField(upload_to='company/image')
