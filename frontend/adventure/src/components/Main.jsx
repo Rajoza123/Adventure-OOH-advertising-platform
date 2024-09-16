@@ -12,12 +12,8 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Image from 'react-bootstrap/Image'
 import logo from '../assets/output-onlinegiftools.gif'
-<<<<<<< HEAD
-import Publisher_signup from "./publisher_signup"
-import Publisher_Dashboard from './Publisher_Dashboard'
-=======
 import Publisher_signup from "./Publisher_signup"
->>>>>>> 885cf5c6db69f249a19fd0d0c51790bf672ffe02
+import Publisher_Dashboard from './Publisher_Dashboard'
 import '../App.css'
 
 import React from 'react'
