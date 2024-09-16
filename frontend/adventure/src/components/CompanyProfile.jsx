@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Container, NavDropdown, Row, Col, Nav, Card, Table, Form, Button, InputGroup } from 'react-bootstrap'
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts'
 import { Search, Bell, ChevronDown } from 'lucide-react'
+import axios from 'axios';
+
 
 const analyticsData = [
   { name: 'Jan', value: 4000 },
