@@ -70,7 +70,7 @@ const MyMap = (props) => {
                 <div className='d-grid  gap-2'>
 
                   <div>
-                    <img src={icon} width={'100%'} />
+                    <img src={'http://127.0.0.1:8000' + marker.image} width={'100%'} />
                   </div>
                   <div>
                     <b> {marker.publisher.name} </b>
