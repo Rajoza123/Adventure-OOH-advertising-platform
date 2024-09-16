@@ -80,7 +80,6 @@ function AddBillboard() {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
-<<<<<<< HEAD
                         {markerPosition && (
                             <Marker position={[markerPosition.lat, markerPosition.lng]}>
                                 <Popup>
@@ -88,14 +87,6 @@ function AddBillboard() {
                                 </Popup>
                             </Marker>
                         )}
-=======
-                         <MapClickHandler />
-                        <Marker position={[coordinates.lat,coordinates.lng]}>
-                            <Popup>
-                                {coordinates.lat}, {coordinates.lng}
-                            </Popup>
-                        </Marker>
->>>>>>> 47dfd7382df7e0f082c203bb63398d2e53c91b83
                     </MapContainer>
                 </Col>
                 <Col md={6}>
