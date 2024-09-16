@@ -14,7 +14,7 @@ function AddBillboard() {
     const [width, setWidth] = useState('');
     const [height, setHeight] = useState('');
     const [price, setPrice] = useState('');
-    const [images, setImages] = useState([]);
+    const [num_board, setNumBoards] = useState('');
 
     useEffect(() => {
         // Fetch billboard types from Django API
@@ -28,34 +28,43 @@ function AddBillboard() {
     }, []);
 
     const handleImageChange = (e) => {
-        setImages([...e.target.files]);
+        setImages(e.target.files[0]);
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Handle form submission logic here
-        console.log({
-            coordinates,
-            area,
-            type,
-            locality,
-            width,
-            height,
-            price,
-            images
-        });
+
+        let formdata = new FormData()
+        const homedata = document.forms['add-bill'];
+        formdata.append('area', area)
+        formdata.append('type', type)
+        formdata.append('coordinates', coordinates.lat+','+coordinates.lng)
+        formdata.append('locality',locality)
+        formdata.append('width',width)
+        formdata.append('height',height )
+        formdata.append('image',homedata.images.files[0])
+        formdata.append('price',price )
+        formdata.append('num_of_boards',num_board )
+
+        axios.post('http://127.0.0.1:8000/billboard/',formdata,{
+            headers: {'Authorization': localStorage.getItem('token')}
+        }).then(()=>{
+            alert('Billboard added successfully')
+        }).catch((e)=>{
+            alert(e);
+        })
     };
     const MapClickHandler = () => {
         useMapEvents({
-          click: (e) => {
-            setCoordinates({
-                lat: e.latlng.lat,
-                lng: e.latlng.lng,
-              });
-          },
+            click: (e) => {
+                setCoordinates({
+                    lat: e.latlng.lat,
+                    lng: e.latlng.lng,
+                });
+            },
         });
         return null;
-      };
+    };
 
     return (
         <Container fluid>
@@ -66,8 +75,8 @@ function AddBillboard() {
                             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
-                         <MapClickHandler />
-                        <Marker position={[coordinates.lat,coordinates.lng]}>
+                        <MapClickHandler />
+                        <Marker position={[coordinates.lat, coordinates.lng]}>
                             <Popup>
                                 {coordinates.lat}, {coordinates.lng}
                             </Popup>
@@ -75,27 +84,29 @@ function AddBillboard() {
                     </MapContainer>
                 </Col>
                 <Col md={6}>
-                    <Form onSubmit={handleSubmit}>
+                    <Form name='add-bill' >
                         <Form.Group className="mb-3">
                             <Form.Label>Coordinates</Form.Label>
                             <Form.Control
+                                name='lat'
                                 type="text"
                                 placeholder="Latitude"
                                 value={coordinates.lat}
-                                onChange={(e) => setCoordinates({ ...coordinates, lat: e.target.value })}
+                                readOnly
                             />
                             <Form.Control
+                                name='lng'
                                 type="text"
                                 placeholder="Longitude"
                                 value={coordinates.lng}
-                                onChange={(e) => setCoordinates({ ...coordinates, lng: e.target.value })}
+                                readOnly
                             />
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Area</Form.Label>
-                            <Form.Select value={area} onChange={(e) => setArea(e.target.value)}>
-                                <option value="">Select Area</option>
+                            <Form.Select name='area' value={area} onChange={(e) => setArea(e.target.value)}>
+                                <option value="" >Select Area</option>
                                 <option value="ashram-road">Ashram Road</option>
                                 <option value="navrangpura">Navrangpura</option>
                                 <option value="cg-road">C.G. Road</option>
@@ -140,19 +151,20 @@ function AddBillboard() {
                             <Form.Label>Type</Form.Label>
                             <Form.Control
                                 as="select"
+                                name='type'
                                 value={type}
                                 onChange={(e) => setType(e.target.value)}
                             >
                                 <option value="">Select Type</option>
                                 {types.map(type => (
-                                    <option key={type.id} value={type.name}>{type.name}</option>
+                                    <option key={type.id} value={type.id}>{type.name}</option>
                                 ))}
                             </Form.Control>
                         </Form.Group>
 
                         <Form.Group className="mb-3">
                             <Form.Label>Locality</Form.Label>
-                            <Form.Select value={locality} onChange={(e) => setLocality(e.target.value)}>
+                            <Form.Select name='locality' value={locality} onChange={(e) => setLocality(e.target.value)}>
                                 <option value="">Select Locality</option>
                                 <option value="residential">Residential</option>
                                 <option value="commercial">Commercial</option>
@@ -163,6 +175,7 @@ function AddBillboard() {
                             <Form.Label>Width (meters)</Form.Label>
                             <Form.Control
                                 type="number"
+                                name='width'
                                 value={width}
                                 onChange={(e) => setWidth(e.target.value)}
                             />
@@ -172,6 +185,7 @@ function AddBillboard() {
                             <Form.Label>Height (meters)</Form.Label>
                             <Form.Control
                                 type="number"
+                                name='height'
                                 value={height}
                                 onChange={(e) => setHeight(e.target.value)}
                             />
@@ -181,8 +195,19 @@ function AddBillboard() {
                             <Form.Label>Price per Day</Form.Label>
                             <Form.Control
                                 type="number"
+                                name='price'
                                 value={price}
                                 onChange={(e) => setPrice(e.target.value)}
+                            />
+                        </Form.Group>
+                        
+                        <Form.Group className="mb-3">
+                            <Form.Label>Num of boards</Form.Label>
+                            <Form.Control
+                                type="number"
+                                name='num_board'
+                                value={num_board}
+                                onChange={(e) => setNumBoards(e.target.value)}
                             />
                         </Form.Group>
 
@@ -190,12 +215,13 @@ function AddBillboard() {
                             <Form.Label>Upload Images</Form.Label>
                             <Form.Control
                                 type="file"
+                                name='images'
                                 multiple
                                 onChange={handleImageChange}
                             />
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button variant="primary" onClick={handleSubmit}>
                             Submit
                         </Button>
                     </Form>
