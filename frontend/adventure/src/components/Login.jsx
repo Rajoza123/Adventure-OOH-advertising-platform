@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button, Container, Row, Col, Card, Form } from 'react-bootstrap';
 import { Facebook, Twitter, Google } from 'react-bootstrap-icons';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from 'axios';
 
 function Login() {
 
@@ -42,24 +43,25 @@ return (
             <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
               <h2 className="fw-bold mb-2 text-uppercase">Login</h2>
               <p className="text-white-50 mb-5">Please enter your login and password!</p>
-
+              <form name='signin'>
               <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
                 <Form.Label>Email address</Form.Label>
-                <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
+                <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" name='email'/>
               </Form.Group>
 
               <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" className="bg-dark text-white" />
+                <Form.Control type="password" placeholder="Enter password" className="bg-dark text-white" name='password'/>
               </Form.Group>
 
               <p className="small mb-3">
                 <a className="text-white-50" href="#!">Forgot password?</a>
               </p>
 
-              <Button variant="outline-light" size="lg" className="mb-4">
+              <Button variant="outline-light" size="lg" className="mb-4 container bg-light text-dark fw-bolder" onClick={handleSubmit}>
                 Login
               </Button>
+              </form>
 
               <p className="small mb-3">
                 <a className="text-white-50" onClick={()=> currentUser == "publisher"? setCurrentUser("company"): setCurrentUser("publisher")}>Login as a {currentUser == 'publisher'? currentUser : 'company'}?</a>
