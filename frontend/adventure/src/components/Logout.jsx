@@ -4,6 +4,7 @@ import axios from 'axios';
 function Logout() {
     useEffect(() => {
         const handleLogout = async () => {
+
             try {
                 await axios.post('http://localhost:8000/comp_signout/', {}, {
                     headers: {
