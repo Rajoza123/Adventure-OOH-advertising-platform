@@ -39,14 +39,14 @@ function Signup() {
           <Card className="bg-dark text-white my-5 mx-auto" style={{ borderRadius: '1rem', maxWidth: '500px' }}>
             <Card.Body className="p-5 d-flex flex-column align-items-center mx-auto w-100">
               <h2 className="fw-bold mb-2 text-uppercase">Sign Up</h2>
-              <p className="text-white-50 mb-5">Please enter your details to create an account!</p> 
-              <p className="text-white-50 mb-5">Please enter your details to create an account!</p>
-              {/* Full Name */}
+              <p className="text-white-50 mb-5">Please enter your details to create an account!</p>   
+              <form name='signup'>
               <Form.Group className="mb-4 w-100" controlId="formBasicName">
                 <Form.Label>Full Name</Form.Label>
                 <Form.Control type="text" placeholder="Enter your name" className="bg-dark text-white" />
                 <Form.Control type="text" placeholder="Enter your name" className="bg-dark text-white" />
               </Form.Group>
+
 
               {/* Email Address */}
               <Form.Group className="mb-4 w-100" controlId="formBasicEmail">
@@ -54,36 +54,24 @@ function Signup() {
                 <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
                 <Form.Control type="email" placeholder="Enter email" className="bg-dark text-white" />
               </Form.Group>
+            
+              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control type="password" placeholder="Confirm password" name='password' className="bg-dark text-white" />
+              </Form.Group>
 
-              {/* Password */}
-              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
-              {/* Password */}
-              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+              <Form.Group className="mb-4 w-100" controlId="formBasicContact">
                 <Form.Label>Contact</Form.Label>
-                <Form.Control type="number" placeholder="Enter password" className="bg-dark text-white" />
-                <Form.Control type="number" placeholder="Enter password" className="bg-dark text-white" />
+                <Form.Control type="number" placeholder="Enter password" name='contact' className="bg-dark text-white" />
               </Form.Group>
 
-              <Form.Group className="mb-4 w-100" controlId="formBasicPassword">
+              <Form.Group className="mb-4 w-100" controlId="formBasicimg">
                 <Form.Label>Image</Form.Label>
-                <Form.Control type="file" placeholder="Enter password" className="bg-dark text-white" />
-                <Form.Label>Image</Form.Label>
-                <Form.Control type="file" placeholder="Enter password" className="bg-dark text-white" />
+                <Form.Control type="file" placeholder="Enter password" name='img' className="bg-dark text-white" />
               </Form.Group>
 
-              {/* Confirm Password */}
-              <Form.Group className="mb-4 w-100" controlId="formBasicConfirmPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm password" className="bg-dark text-white" />
 
-              {/* Confirm Password */}
-              <Form.Group className="mb-4 w-100" controlId="formBasicConfirmPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Confirm password" className="bg-dark text-white" />
-              </Form.Group>
-
-              <Button variant="outline-light" size="lg" className="mb-4">
-              <Button variant="outline-light" size="lg" className="mb-4">
+              <Button variant="outline-light" size="lg" className="mb-4" onClick={handlesubmit}>
                 Sign Up
               </Button>
 
