@@ -4,18 +4,17 @@ import axios from 'axios';
 function Logout() {
     useEffect(() => {
         const handleLogout = async () => {
-        let url = ''
+            let url = ''
             try {
 
-                if(window.localStorage.getItem("publisher_id"))
-{                    url = 'pub_signout'
+                if (window.localStorage.getItem("publisher_id")) {
+                    url = 'pub_signout'
                     // Clear local storage or session data
                     localStorage.removeItem('token');
                     localStorage.removeItem('publisher_id');
                     localStorage.removeItem('publisher_name');
                     localStorage.removeItem('is_authenticated');
-}                else if(window.localStorage.getItem("company_id"))
-                {
+                } else if (window.localStorage.getItem("company_id")) {
                     url = 'comp_signout'
                     // Clear local storage or session data
                     localStorage.removeItem('token');
