@@ -76,7 +76,37 @@ class BillBoardView(APIView):
 
 	serializer_class = ReactBillBoardSerializer
 
-	def get(self, request):
+	def get(self, request, id=None):
+		if id:
+			try:
+				# Fetch the single billboard by id
+				billboard_instance = billboards.objects.get(id=id)
+				
+				# Serialize the billboard data
+				serializer = self.serializer_class(billboard_instance)
+				data = serializer.data
+
+				# Extract and add latitude and longitude from coordinates
+				data['lat'] = data['coordinates'].split(',')[0]
+				data['lng'] = data['coordinates'].split(',')[1]
+
+				# Get and serialize the billboard type
+				type_instance = billboard_type.objects.get(id=data['type'])
+				type_serializer = ReactBillBoardTypeSerializer(type_instance)
+				data['type'] = type_serializer.data
+
+				# Get and serialize the publisher data
+				publisher_instance = publishers.objects.get(id=data['publisher_id'])
+				publisher_serializer = ReactPublisherSerializer(publisher_instance)
+				data['publisher'] = publisher_serializer.data
+
+				return Response(data, status=status.HTTP_200_OK)
+			except billboards.DoesNotExist:
+				return Response({'error': 'Billboard not found'}, status=status.HTTP_404_NOT_FOUND)
+			except Exception as e:
+				return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+		
+		# Fetch all billboards if no specific id is provided
 		billboards_list = billboards.objects.all()
 		serializer = self.serializer_class(billboards_list, many=True)
 		for b in serializer.data:
@@ -90,7 +120,8 @@ class BillBoardView(APIView):
 			publisher_instance = publishers.objects.get(id=b['publisher_id'])
 			publisher_serializer = ReactPublisherSerializer(publisher_instance)
 			b['publisher'] = publisher_serializer.data
-		return Response(serializer.data)
+
+		return Response(serializer.data, status=status.HTTP_200_OK)
 
 	def post(self, request):
 		token = request.headers.get('Authorization')
