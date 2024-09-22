@@ -34,7 +34,14 @@ export default function BillboardBooking() {
       endDate: ranges.selection.endDate,
     });
 
-    console.log(ranges)
+    setPrice(()=>{
+      const start = ranges.selection.startDate.getTime();
+      const end = ranges.selection.endDate.getTime();
+      const duration = (end - start) / (1000 * 60 * 60 *  24);
+      const price = (duration+1) * billboard.price;
+      return price;
+
+    })
   }
 
   // Handle form submission
@@ -54,7 +61,7 @@ export default function BillboardBooking() {
     axios.post("http://127.0.0.1:8000/billxcomp",formData,{
       headers: {
        'Content-Type': 'multipart/form-data',
-       'Authorization': `Bearer ${sessionid}`
+       'Authorization': localStorage.getItem('token')
       }
     }).then((res)=>{
       console.log(res.data)
@@ -162,7 +169,6 @@ export default function BillboardBooking() {
 
           <form onSubmit={handleSubmit} className="space-y-4" name='book'>
             <input type="hidden" name="id" value={billboard.id} />
-            <input type="hidden" name="company_id" value={sessionid} />
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -173,6 +179,7 @@ export default function BillboardBooking() {
                 name='price'
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
+                disabled
               />
             </div>
             <div className="form-group">
