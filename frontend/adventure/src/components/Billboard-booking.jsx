@@ -37,9 +37,31 @@ export default function BillboardBooking() {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
     console.log("Date Range:", selectionRange);
     console.log("Price:", price);
     console.log("Image:", image);
+=======
+    const  formData = new FormData();
+    const fields = document.forms["book"];
+    
+    formData.append("id",fields.id.value)
+    formData.append("images",fields.images.files)
+    formData.append("price",fields.price.value)
+    formData.append("company_id",fields.company_id.value)
+
+    formData.append("start_date",selectionRange.startDate)
+    formData.append("end_date",selectionRange.endDate)
+
+    axios.post("http://127.0.0.1:8000/book",formData,{
+      headers: {
+       'Content-Type': 'multipart/form-data',
+       'Authorization': localStorage.getItem('token')
+      }
+    }).then((res)=>{
+      console.log(res.data)
+    })
+>>>>>>> 244d1e5a75cca66558ad086569a482d76a7f669e
     // Submit the data to server or perform any action needed
   };
 
