@@ -1,7 +1,6 @@
-"use client";
 import { DateRangePicker } from 'react-date-range';
-
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 import { Card, Carousel, Button } from "react-bootstrap";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
@@ -9,7 +8,11 @@ import "bootstrap/dist/css/bootstrap.min.css"; // Import bootstrap styles
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import './Booking.css';
+import axios from 'axios';
+
+
 export default function BillboardBooking() {
+  const { id } = useParams();
   const [dateRange, setDateRange] = useState("");
   const [image, setImage] = useState(null);
   const [selectionRange, setSelectionRange] = useState({
@@ -36,7 +39,7 @@ export default function BillboardBooking() {
   function handleFileChange(e) {
     setFile(e.target.files[0]);
   }
-
+  const [coordinates,setCoordinates] = useState({lat:23.037547757260782,lng:72.55952939994147})
   // function handleSubmit(e) {
   //   e.preventDefault();
   //   console.log('Price:', price);
@@ -50,6 +53,17 @@ export default function BillboardBooking() {
     console.log("Price:", price);
     console.log("Image:", image);
   };
+  const [billboard,setBillboard] = useState({}) 
+  useEffect(()=>{
+    // console.log(id)
+    const api = "http://127.0.0.1:8000/billboard/" + id + "/"
+    axios.get(api).then((res)=>{
+      setBillboard(res.data)
+      setCoordinates({lat:billboard.lat,lng:billboard.lng})
+    }).catch(()=>{
+      console.log("Error")
+    })
+  },[])
 
   return (
     <div className="container mx-auto p-4">
@@ -71,7 +85,7 @@ export default function BillboardBooking() {
                   </Carousel.Item>
                 ))}
               </Carousel>
-              <h2 className="text-xl font-bold mt-4">Billboard Name</h2>
+              <h2 className="text-xl font-bold mt-4">{billboard.area}</h2>
             </Card.Body>
           </Card>
         </div>
@@ -83,12 +97,13 @@ export default function BillboardBooking() {
             </Card.Header>
             <Card.Body>
               <div style={{ height: "400px", width: "100%" }}>
-                <MapContainer center={[51.505, -0.09]} zoom={13} style={{ height: "100%", width: "100%" }}>
+                {billboard && <MapContainer center={[coordinates.lat, coordinates.lng]} zoom={13} style={{ height: "100%", width: "100%" }}>
                   <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                   <Marker position={[51.505, -0.09]}>
                     <Popup>Billboard Location</Popup>
                   </Marker>
-                </MapContainer>
+                </MapContainer>}
+                
               </div>
             </Card.Body>
           </Card>
