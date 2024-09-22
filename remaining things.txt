@@ -7,5 +7,4 @@ publisher:
     view costomers
     view billboards
     view order
-    order notification
-
+    order request/notification

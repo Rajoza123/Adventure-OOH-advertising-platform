@@ -62,54 +62,54 @@ class BillxCompView(APIView):
 
 class Bookings(APIView):
 
-    def get(self, request):
-        # Retrieve the Authorization token from headers
-        token = request.headers.get('Authorization')
+	def get(self, request):
+		# Retrieve the Authorization token from headers
+		token = request.headers.get('Authorization')
 
-        # Check if the token is provided
-        if not token:
-            return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+		# Check if the token is provided
+		if not token:
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            # Retrieve the auth token and the company
-            auth_token = CompanyAuthToken.objects.get(token=token)
-            if not auth_token.is_valid():
-                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		try:
+			# Retrieve the auth token and the company
+			auth_token = CompanyAuthToken.objects.get(token=token)
+			if not auth_token.is_valid():
+				return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
 
-            company = companies.objects.get(id=auth_token.user.id)
-        except CompanyAuthToken.DoesNotExist:
-            return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
-        except companies.DoesNotExist:
-            return Response({'error': 'Company not found'}, status=status.HTTP_404_NOT_FOUND)
+			company = companies.objects.get(id=auth_token.user.id)
+		except CompanyAuthToken.DoesNotExist:
+			return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		except companies.DoesNotExist:
+			return Response({'error': 'Company not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        # Get all billxcomp records related to this company
-        billxcomp_records = billxcomp.objects.filter(company_id=company.id)
+		# Get all billxcomp records related to this company
+		billxcomp_records = billxcomp.objects.filter(company_id=company.id)
 
-        # Prepare a list to hold the combined serialized data
-        data = []
+		# Prepare a list to hold the combined serialized data
+		data = []
 
-        # Iterate over billxcomp records to include billboard data
-        for record in billxcomp_records:
-            # Serialize the billxcomp record
-            serializer = ReactBillxCompSerializer(record)
+		# Iterate over billxcomp records to include billboard data
+		for record in billxcomp_records:
+			# Serialize the billxcomp record
+			serializer = ReactBillxCompSerializer(record)
 
-            # Get the corresponding billboard data
-            try:
-                billboard_instance = billboards.objects.get(id=record.billboard_id.id)  # Ensure you're getting the ID
-                billboard_serializer = ReactBillBoardSerializer(billboard_instance)
+			# Get the corresponding billboard data
+			try:
+				billboard_instance = billboards.objects.get(id=record.billboard_id.id)  # Ensure you're getting the ID
+				billboard_serializer = ReactBillBoardSerializer(billboard_instance)
 
-                # Combine the serialized data
-                combined_data = serializer.data
-                combined_data['billboard'] = billboard_serializer.data
-            except billboards.DoesNotExist:
-                combined_data = serializer.data
-                combined_data['billboard'] = None  # Handle missing billboard
+				# Combine the serialized data
+				combined_data = serializer.data
+				combined_data['billboard'] = billboard_serializer.data
+			except billboards.DoesNotExist:
+				combined_data = serializer.data
+				combined_data['billboard'] = None  # Handle missing billboard
 
-            data.append(combined_data)
+			data.append(combined_data)
 
-        # Return the combined serialized data
-        return Response(data, status=status.HTTP_200_OK)
-        
+		# Return the combined serialized data
+		return Response(data, status=status.HTTP_200_OK)
+		
 
 
 class BillboardTypeView(APIView): 
@@ -238,3 +238,51 @@ class BillBoardView(APIView):
 		except serializers.ValidationError as e:
 			print(e)  # Log serializer errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+	def put(self, request, id):
+		token = request.headers.get('Authorization')
+		if not token:
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+		try:
+			auth_token = PublisherAuthToken.objects.get(token=token)
+			if not auth_token.is_valid():
+				return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+
+			# Fetch the billboard instance by id
+			billboard_instance = billboards.objects.get(id=id)
+			serializer = self.serializer_class(billboard_instance, data=request.data, partial=True)
+
+			if serializer.is_valid(raise_exception=True):
+				serializer.save()
+				return Response(serializer.data, status=status.HTTP_200_OK)
+		except PublisherAuthToken.DoesNotExist:
+			return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		except billboards.DoesNotExist:
+			return Response({'error': 'Billboard not found'}, status=status.HTTP_404_NOT_FOUND)
+		except serializers.ValidationError as e:
+			print(e)
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+		except Exception as e:
+			return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+	def delete(self, request, id):
+		token = request.headers.get('Authorization')
+		if not token:
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+		try:
+			auth_token = PublisherAuthToken.objects.get(token=token)
+			if not auth_token.is_valid():
+				return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+
+			# Fetch the billboard instance by id
+			billboard_instance = billboards.objects.get(id=id)
+			billboard_instance.delete()
+			return Response(status=status.HTTP_204_NO_CONTENT)
+		except PublisherAuthToken.DoesNotExist:
+			return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		except billboards.DoesNotExist:
+			return Response({'error': 'Billboard not found'}, status=status.HTTP_404_NOT_FOUND)
+		except Exception as e:
+			return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
