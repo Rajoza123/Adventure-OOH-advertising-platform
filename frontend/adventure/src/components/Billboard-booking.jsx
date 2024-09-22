@@ -51,7 +51,7 @@ export default function BillboardBooking() {
     formData.append("start_date",selectionRange.startDate)
     formData.append("end_date",selectionRange.endDate)
 
-    axios.post("http://127.0.0.1:8000/book",formData,{
+    axios.post("http://127.0.0.1:8000/billxcomp",formData,{
       headers: {
        'Content-Type': 'multipart/form-data',
        'Authorization': `Bearer ${sessionid}`
