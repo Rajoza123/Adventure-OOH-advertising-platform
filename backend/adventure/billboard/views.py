@@ -7,6 +7,8 @@ from publisher.models import PublisherAuthToken
 from company.models import CompanyAuthToken
 from . models import *
 from . serializer import *
+from datetime import timedelta
+
 # Create your views here.
 
 class BillxCompView(APIView): 
@@ -52,6 +54,12 @@ class BillxCompView(APIView):
 			print(e)  # Log serializer errors
 			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+	# def post(self, request): 
+	# 	serializer = ReactBillxCompSerializer(data=request.data) 
+	# 	if serializer.is_valid(raise_exception=True): 
+	# 		serializer.save() 
+	# 		return Response(serializer.data) 
+
 
 
 class BillboardTypeView(APIView): 
@@ -75,8 +83,16 @@ class BillboardTypeView(APIView):
 class BillBoardView(APIView):
 
 	serializer_class = ReactBillBoardSerializer
+	
 
 	def get(self, request, id=None):
+		def generate_disabled_dates(start_date, end_date):
+			date_list = []
+			current_date = start_date
+			while current_date <= end_date:
+				date_list.append(current_date)
+				current_date += timedelta(days=1)
+			return date_list
 		if id:
 			try:
 				# Fetch the single billboard by id
@@ -100,11 +116,27 @@ class BillBoardView(APIView):
 				publisher_serializer = ReactPublisherSerializer(publisher_instance)
 				data['publisher'] = publisher_serializer.data
 
+				# Fetch the booking dates from billxcomp for this billboard
+				bookings = billxcomp.objects.filter(billboard_id=billboard_instance).values('start_date', 'end_date')
+
+				# Prepare disabled dates by extracting start_date and end_date
+				disabled_dates = []
+				for booking in bookings:
+					start_date = booking['start_date']
+					end_date = booking['end_date']
+					# Add all dates between start_date and end_date to the disabled_dates list
+					disabled_dates.extend(generate_disabled_dates(start_date, end_date))
+				
+				# Add disabled dates to the response
+				data['disabled_dates'] = disabled_dates
+
 				return Response(data, status=status.HTTP_200_OK)
+
 			except billboards.DoesNotExist:
 				return Response({'error': 'Billboard not found'}, status=status.HTTP_404_NOT_FOUND)
 			except Exception as e:
 				return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 		
 		# Fetch all billboards if no specific id is provided
 		billboards_list = billboards.objects.all()
