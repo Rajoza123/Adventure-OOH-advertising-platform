@@ -1,1 +1,10 @@
 multiple photos for billboard
+
+
+publisher:
+    delete billboard
+    upadate billboard
+    view costomers
+    view order
+    order notification
+

@@ -81,7 +81,6 @@ const BillBoardList = () => {
         <div className="d-flex align-items-center mt-1">
           <small className="text-muted">locality: {book.billboard.locality}</small>
         </div>
-
         <div className="d-flex align-items-center mt-1">
           <small className="text-muted">Size: {book.billboard.height} × {book.billboard.width} </small>
         </div>
@@ -95,7 +94,10 @@ const BillBoardList = () => {
           <small className="text-muted">Number of Boards: {book.billboard.num_of_boards}</small>
         </div>
         <div className="d-flex align-items-center mt-1">
-          <small className="text-muted">Price: {book.billboard.price}</small>
+          <small className="text-muted">Price: ₹{book.billboard.price}/day</small>
+        </div>
+        <div className="d-flex align-items-center mt-1">
+          <small className="text-muted">Total Amount: ₹{book.price}</small>
         </div>
       </td>
       <td className="text-end">
