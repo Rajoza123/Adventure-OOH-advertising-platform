@@ -52,7 +52,7 @@ const MyMap = (props) => {
       center={cordinates}
       zoom={13}
       scrollWheelZoom={true}
-      style={{ height: '65vh', width: '100%' }}
+      style={{ height: '100vh', width: '100%' }}
 
     >
       <TileLayer

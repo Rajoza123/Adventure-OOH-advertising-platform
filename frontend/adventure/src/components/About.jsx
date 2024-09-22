@@ -2,8 +2,30 @@ import React from 'react';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
+import img1 from './images/Rajoza.jpg'
 export default function About() {
+  const data = [
+    {
+      'name': 'Raj oza',
+      'image': img1,
+      'desc': 'Python developer'
+
+    },
+    {
+      'name': 'Vinay Koshti',
+      'image': img1,
+      'desc': 'Python developer'
+
+    },
+    {
+      'name': 'Dhruv Ahir',
+      'image': img1,
+      'desc': 'Python developer'
+
+    },
+  ]
+
+
   return (
     <Container className="py-5">
       <Row className="mb-5">
@@ -67,14 +89,14 @@ export default function About() {
         <Col>
           <h2 className="text-center mb-4 d-flex justify-content-center">Our Team</h2>
           <Row className='d-flex justify-content-center'>
-            {['Vinay Koshti', 'Dhruv Ahir', 'Raj Oza'].map((role, index) => (
+            {data.map((role, index) => (
               <Col key={index} md={3} className="mb-4 mx-4">
                 <Card>
-                  <Card.Img variant="top" src={`/vite.svg`} />
+                  <Card.Img variant="top" src={role.image} />
                   <Card.Body>
-                    <Card.Title className='text-center'>{role}</Card.Title>
+                    <Card.Title className='text-center'>{role.name}</Card.Title>
                     <Card.Text>
-                    "Python developer by day, web wizard by night, building magic one line of code at a time."
+                      {role.desc}
 
                     </Card.Text>
                   </Card.Body>
@@ -92,10 +114,10 @@ export default function About() {
             Whether you're an advertiser looking for the perfect billboard or a publisher wanting to showcase your inventory, AdVenture is here to help you succeed.
           </p>
           <Link to={'/login'}>
-          <Button variant="primary" size="lg">
-            Get Started <ArrowRight className="ml-2" />
-          </Button>
-          
+            <Button variant="primary" size="lg">
+              Get Started <ArrowRight className="ml-2" />
+            </Button>
+
           </Link>
         </Col>
       </Row>
