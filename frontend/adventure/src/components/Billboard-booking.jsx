@@ -10,9 +10,10 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import './Booking.css';
 import axios from 'axios';
 
-
 export default function BillboardBooking() {
   const { id } = useParams();
+  
+  // Initial states
   const [dateRange, setDateRange] = useState("");
   const [image, setImage] = useState(null);
   const [selectionRange, setSelectionRange] = useState({
@@ -20,10 +21,11 @@ export default function BillboardBooking() {
     endDate: new Date(),
     key: 'selection',
   });
-
   const [price, setPrice] = useState('');
-  const [file, setFile] = useState(null);
+  const [coordinates, setCoordinates] = useState({ lat: 23.037547757260782, lng: 72.55952939994147 });
+  const [billboard, setBillboard] = useState({});
 
+  // Handle date range selection
   function handleSelect(ranges) {
     setSelectionRange({
       ...selectionRange,
@@ -32,42 +34,32 @@ export default function BillboardBooking() {
     });
   }
 
-  function handlePriceChange(e) {
-    setPrice(e.target.value);
-  }
-
-  function handleFileChange(e) {
-    setFile(e.target.files[0]);
-  }
-  const [coordinates,setCoordinates] = useState({lat:23.037547757260782,lng:72.55952939994147})
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   console.log('Price:', price);
-  //   console.log('File:', file);
-  //   // You can handle the form data submission here (e.g., send to the server)
-  // }
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
-    console.log("Date Range:", dateRange);
+    console.log("Date Range:", selectionRange);
     console.log("Price:", price);
     console.log("Image:", image);
+    // Submit the data to server or perform any action needed
   };
-  const [billboard,setBillboard] = useState({}) 
-  useEffect(()=>{
-    // console.log(id)
-    const api = "http://127.0.0.1:8000/billboard/" + id + "/"
-    axios.get(api).then((res)=>{
-      setBillboard(res.data)
-      setCoordinates({lat:billboard.lat,lng:billboard.lng})
-    }).catch(()=>{
-      console.log("Error")
-    })
-  },[])
+
+  // Fetch billboard details
+  useEffect(() => {
+    const api = `http://127.0.0.1:8000/billboard/${id}/`;
+    axios.get(api)
+      .then((res) => {
+        setBillboard(res.data);
+        setCoordinates({ lat: parseFloat(res.data.lat), lng: parseFloat(res.data.lng) });
+      })
+      .catch(() => {
+        console.log("Error fetching billboard data");
+      });
+  }, [id]);
 
   return (
     <div className="container mx-auto p-4">
       <div className="row">
+        {/* Billboard Details */}
         <div className="col-md-6 mb-4">
           <Card>
             <Card.Header>
@@ -90,6 +82,7 @@ export default function BillboardBooking() {
           </Card>
         </div>
 
+        {/* Billboard Location Map */}
         <div className="col-md-6 mb-4">
           <Card>
             <Card.Header>
@@ -97,19 +90,26 @@ export default function BillboardBooking() {
             </Card.Header>
             <Card.Body>
               <div style={{ height: "400px", width: "100%" }}>
-                {billboard && <MapContainer center={[coordinates.lat, coordinates.lng]} zoom={13} style={{ height: "100%", width: "100%" }}>
-                  <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                  <Marker position={[51.505, -0.09]}>
-                    <Popup>Billboard Location</Popup>
-                  </Marker>
-                </MapContainer>}
-                
+                {billboard && (
+                  <MapContainer 
+                    center={[coordinates.lat, coordinates.lng]} 
+                    zoom={13} 
+                    style={{ height: "100%", width: "100%" }}
+                    key={`${coordinates.lat}-${coordinates.lng}`} // Force re-render when coords change
+                  >
+                    <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+                    <Marker position={[coordinates.lat, coordinates.lng]}>
+                      <Popup>Billboard Location</Popup>
+                    </Marker>
+                  </MapContainer>
+                )}
               </div>
             </Card.Body>
           </Card>
         </div>
       </div>
 
+      {/* Booking Form */}
       <Card className="mt-4">
         <Card.Header>
           <Card.Title>Book Billboard</Card.Title>
@@ -140,7 +140,7 @@ export default function BillboardBooking() {
                 id="image"
                 type="file"
                 className="form-control"
-                onChange={(e) => setImage(e.target.files || null)}
+                onChange={(e) => setImage(e.target.files[0])} // Handle single file selection
               />
             </div>
             <Button type="submit">Submit Booking</Button>
