@@ -44,6 +44,9 @@ const MyMap = (props) => {
       console.log(e)
     })
   }, [])
+  const handleClick=()=>{
+    
+  }
 
   return (
     <MapContainer
@@ -78,7 +81,7 @@ const MyMap = (props) => {
                       <p> <b> Type : </b>{marker.type.name} </p>
                     </p>
                     <p> <b> Price :</b> ₹ {marker.price} </p>
-                    <button className="btn btn-dark">Book</button>
+                    <button className="btn btn-dark" onClick={}>Book</button>
                   </div>
                 </div>
               </Popup>
