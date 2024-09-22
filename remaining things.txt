@@ -5,6 +5,7 @@ publisher:
     delete billboard
     upadate billboard
     view costomers
+    view billboards
     view order
     order notification
 

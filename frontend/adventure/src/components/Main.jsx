@@ -17,7 +17,7 @@ import Publisher_Dashboard from './Publisher_Dashboard'
 import AddBillboard from './AddBillboard'
 import '../App.css'
 
-import React from 'react'
+import React from "react"
 import CompanyProfile from "./CompanyProfile"
 import Logout from "./Logout"
 import BillBoardList from "./BillBoardList"
@@ -25,6 +25,12 @@ import Company from "./Company"
 import Notification from "./Notification"
 import Booking from './Booking'
 import Billboardbooking from './Billboard-booking'
+import ViewBillBoards from "./ViewBillBoards"
+import Requests from "./Requests"
+import ViewBillBoard from "./ViewBillBoard"
+import DeleteBillBoard from "./DeleteBillBoard"
+import UpdateBillBoard from "./UpdateBillBoard"
+
 
 const Main = () => {
 
@@ -74,6 +80,12 @@ const Main = () => {
             <Route path="/Publisher" element={<Publisher/>}>
                 <Route path="dashboard" element={<Publisher_Dashboard />} />
                 <Route path="addbillboard" element={<AddBillboard />} />
+                <Route path="viewbillboard" element={<ViewBillBoards />} />
+                <Route path="requests" element={<Requests />} />
+                <Route path="view/:id" element={<ViewBillBoard />} />
+                <Route path="update/:id" element={<UpdateBillBoard />} />
+                <Route path="delete/:id" element={<DeleteBillBoard />} />
+
             </Route>
             <Route path="/Signup" element={<Signup/>}></Route>
             <Route path="/Publisher_signup" element={<Publisher_signup/>}></Route>

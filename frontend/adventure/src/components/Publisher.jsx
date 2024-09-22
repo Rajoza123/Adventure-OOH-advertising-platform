@@ -66,8 +66,8 @@ function Publisher_Dashboard() {
               Billboard
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="addbillboard">Add Billboard</Dropdown.Item>
-              <Dropdown.Item href="#/delete-billboard">Delete Billboard</Dropdown.Item>
+              <Dropdown.Item href="/publisher/viewbillboard">View BillBoards</Dropdown.Item>
+              <Dropdown.Item href="/publisher/addbillboard">Add Billboard</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
 
@@ -86,10 +86,10 @@ function Publisher_Dashboard() {
           {/* Orders Dropdown */}
           <Dropdown className="mb-3">
             <Dropdown.Toggle variant="secondary" id="dropdown-basic">
-              Orders
+              Updates
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/recent-orders">Recent Orders</Dropdown.Item>
+              <Dropdown.Item href="requests">BillBoard Requests</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
