@@ -60,6 +60,9 @@ class BillxCompView(APIView):
 	# 		serializer.save() 
 	# 		return Response(serializer.data) 
 
+class Bookings(APIView):
+    def get(self,request):
+        
 
 
 class BillboardTypeView(APIView): 

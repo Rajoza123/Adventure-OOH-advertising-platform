@@ -14,8 +14,7 @@ export default function BillboardBooking() {
   const { id } = useParams();
 
   // Initial states
-  const [dateRange, setDateRange] = useState("");
-  const [image, setImage] = useState([]);
+
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
@@ -49,26 +48,22 @@ export default function BillboardBooking() {
     const formData = new FormData();
     const fields = document.forms["book"];
 
-    formData.append("id", fields.id.value);
-    formData.append("company_id", sessionid);
-
-    // Handle multiple file uploads
-    Array.from(image).forEach((file) => {
-      formData.append("images", file);
-    });
-
+    formData.append("billboard_id", fields.id.value);
     formData.append("price", fields.price.value);
-    formData.append("start_date", selectionRange.startDate.toISOString());
-    formData.append("end_date", selectionRange.endDate.toISOString());
+    formData.append("start_date", selectionRange.startDate.toISOString().slice(0, 10));
+    formData.append("end_date", selectionRange.endDate.toISOString().slice(0, 10));
+    formData.append('file',fields.file.files[0])
 
-    axios.post("http://127.0.0.1:8000/billxcomp", formData, {
+    axios.post("http://127.0.0.1:8000/billxcomp/", formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': localStorage.getItem('token'),
       },
     }).then((res) => {
       console.log(res.data);
-    });
+    }).catch((er)=>{
+      alert(er);
+    })
   };
 
   function renderStaticRangeLabel(range) {
@@ -162,8 +157,8 @@ export default function BillboardBooking() {
               <input id="price" type="number" className="form-control" name="price" value={price} disabled />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Upload Images</label>
-              <input id="image" type="file" className="form-control" multiple onChange={(e) => setImage(e.target.files)} />
+              <label htmlFor="image">Upload File</label>
+              <input id="file" name='file' type="file" className="form-control" />
             </div>
             <Button type="submit">Submit Booking</Button>
           </form>
