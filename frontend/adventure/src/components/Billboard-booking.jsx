@@ -20,6 +20,7 @@ export default function BillboardBooking() {
     endDate: new Date(),
     key: 'selection',
   });
+  const isAuthorized = localStorage.getItem("is_authenticated")
   const [price, setPrice] = useState(0); // Ensure price is controlled
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [billboard, setBillboard] = useState({});
@@ -38,32 +39,44 @@ export default function BillboardBooking() {
       const end = ranges.selection.endDate.getTime();
       const duration = (end - start) / (1000 * 60 * 60 * 24);
       const price = (duration + 1) * billboard.price;
-      return price || 0; // Fallback to 0 if billboard price is undefined
+      return price || 0; 
     });
   }
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    const fields = document.forms["book"];
 
-    formData.append("billboard_id", fields.id.value);
-    formData.append("price", fields.price.value);
-    formData.append("start_date", selectionRange.startDate.toISOString().slice(0, 10));
-    formData.append("end_date", selectionRange.endDate.toISOString().slice(0, 10));
-    formData.append('file',fields.file.files[0])
-
-    axios.post("http://127.0.0.1:8000/billxcomp/", formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-        'Authorization': localStorage.getItem('token'),
-      },
-    }).then((res) => {
-      console.log(res.data);
-    }).catch((er)=>{
-      alert(er);
-    })
+    if(isAuthorized){
+      if(!localStorage.getItem("company_id")){
+        alert("Login as a company to book the billboard.")
+      }
+      const formData = new FormData();
+      const fields = document.forms["book"];
+  
+      formData.append("billboard_id", fields.id.value);
+      formData.append("price", fields.price.value);
+      formData.append("start_date", selectionRange.startDate.toISOString().slice(0, 10));
+      formData.append("end_date", selectionRange.endDate.toISOString().slice(0, 10));
+      formData.append('file',fields.file.files[0])
+  
+      axios.post("http://127.0.0.1:8000/billxcomp/", formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Authorization': localStorage.getItem('token'),
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if(res.data.id)
+          window.alert("Request has been successfully registered.")
+          window.location.assign("/company/billboard")
+      }).catch((er)=>{
+        alert(er);
+      })
+    }
+    else{
+      alert("Please Login to book the billboard.")
+    }
   };
 
   function renderStaticRangeLabel(range) {
@@ -95,11 +108,14 @@ export default function BillboardBooking() {
             <Card.Body>
               <Carousel>
                 {[1, 2, 3].map((index) => (
-                  <Carousel.Item key={index}>
+                  <Carousel.Item key={index} >
+                    
                     <img
                       src={`http://127.0.0.1:8000/${billboard.image}`}
+                      width={"218px"}
                       alt={`Billboard ${index}`}
-                      className="w-100 h-48 object-cover"
+                      className=" object-cover"
+                      style={{margin:"auto", display:"block"}}
                     />
                   </Carousel.Item>
                 ))}

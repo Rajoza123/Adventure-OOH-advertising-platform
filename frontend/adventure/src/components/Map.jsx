@@ -47,6 +47,18 @@ const MyMap = (props) => {
     })
   }, [])
 
+  const handleRedirect = (id)=>{
+    if(localStorage.getItem("is_authenticated")){
+      if(!localStorage.getItem("company_id")){
+        alert("Login as a company to book the billboard.")
+      }else{
+        window.location.assign("/book/"+id)
+      }
+    }else{
+      alert("Login To Access This Functionality")
+    }
+  }
+
   return (
     <MapContainer
       center={cordinates}
@@ -80,7 +92,7 @@ const MyMap = (props) => {
                       <p> <b> Type : </b>{marker.type.name} </p>
                     </p>
                     <p> <b> Price :</b> ₹ {marker.price} </p>
-                    <Link to={"/book/"+marker.id}><button className="btn btn-dark">Book</button></Link>
+                    <button onClick={()=>handleRedirect(marker.id)} className="btn btn-dark" >Book</button>
                   </div>
                 </div>
               </Popup>
