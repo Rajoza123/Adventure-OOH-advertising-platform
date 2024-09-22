@@ -80,7 +80,7 @@ const MyMap = (props) => {
                       <p> <b> Type : </b>{marker.type.name} </p>
                     </p>
                     <p> <b> Price :</b> ₹ {marker.price} </p>
-                    <Link to={"/book/"+marker.id}><button className="btn btn-dark" onClick={()=>redirectToBook(marker.id)}>Book</button></Link>
+                    <Link to={"/book/"+marker.id}><button className="btn btn-dark">Book</button></Link>
                   </div>
                 </div>
               </Popup>
