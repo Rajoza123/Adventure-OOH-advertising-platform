@@ -1,10 +1,12 @@
 from django.shortcuts import render 
 from rest_framework.views import APIView 
 from . models import *
+from billboard.models import billboards
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from . serializer import *
+from billboard.serializer import ReactBillBoardSerializer
 # Create your views here. 
 
 class PublisherView(APIView): 
@@ -88,7 +90,7 @@ class PublisherProfileView(APIView):
                 'image': publisher.image.url if publisher.image else None,
             }, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({'error': 'user not foune'}, status=403)
+            return Response({'error': 'user not found'}, status=403)
         else:
             return Response({'error': 'Not authenticated'}, status=403)
         
@@ -96,4 +98,20 @@ class PublsiherSignOutView(APIView):
 
     def post(self, request):
         return Response({'message': 'Logged out successfully'}, status=status.HTTP_200_OK)
-
+    
+class PublisherBillBoardsViews(APIView):
+    
+    def get(self,request):
+        token = request.headers.get('Authorization')
+        try:
+            auth_token = PublisherAuthToken.objects.get(token=token)
+            if auth_token.is_valid():
+                publisher = publishers.objects.get(id=auth_token.user.id)
+                boards = billboards.objects.filter(publisher_id=publisher.id)
+                serializer = ReactBillBoardSerializer(boards, many=True)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Not authenticated'}, status=403)
+        except Exception as e:
+            return Response({'error': 'user not found'}, status=403)
+        

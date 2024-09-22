@@ -24,20 +24,21 @@ from billboard.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('publisher/',PublisherView.as_view(),name='Publishers'),
-    path('company/',CompanyView.as_view(),name='Companies'),
-    path('company/<int:id>/',CompanyView.as_view(),name='Company'),
     path('billtype/',BillboardTypeView.as_view(),name='Billboard-Type'),
     path('billboard/',BillBoardView.as_view(),name='Billboards'),
     path('billboard/<int:id>/',BillBoardView.as_view(),name='Billboard'),
     path('billxcomp/',BillxCompView.as_view(),name='Booking'),
+    path('bookings/', Bookings.as_view(), name='company-Bookings'),
+    path('company/',CompanyView.as_view(),name='Companies'),
+    path('company/<int:id>/',CompanyView.as_view(),name='Company'),
     path('comp_signin/', CompanySignInView.as_view(), name='company-signin'),
     path('comp_profile/', CompanyProfileView.as_view(), name='company-profile'),
     path('comp_signout/', CompanySignOutView.as_view(), name='company-signout'),
-    path('pub_signin/', PublisherSignInView.as_view(), name='company-signin'),
-    path('pub_profile/', PublisherProfileView.as_view(), name='company-profile'),
-    path('pub_signout/', PublsiherSignOutView.as_view(), name='company-signout'),
-    path('bookings/', Bookings.as_view(), name='company-Bookings'),
+    path('publisher/',PublisherView.as_view(),name='Publishers'),
+    path('pub_signin/', PublisherSignInView.as_view(), name='Publisher-signin'),
+    path('pub_profile/', PublisherProfileView.as_view(), name='Publisher-profile'),
+    path('pub_signout/', PublsiherSignOutView.as_view(), name='Publisher-signout'),
+    path('pub_billboards/', PublisherBillBoardsViews.as_view(), name='Publisher-profile'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

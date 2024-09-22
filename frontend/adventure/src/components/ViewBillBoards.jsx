@@ -10,7 +10,7 @@ const ViewBillBoards = () => {
     const [billboards, setBillBoards] = useState([])
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:8000/billboard/", {
+        axios.get("http://127.0.0.1:8000/pub_billboards/", {
             headers: {
                 'Authorization': localStorage.getItem('token'),
             }
@@ -76,9 +76,6 @@ const ViewBillBoards = () => {
                                                     </div>
                                                     <div className="d-flex align-items-center mt-1">
                                                         <small className="text-muted">Price: ₹{book.price}/day</small>
-                                                    </div>
-                                                    <div className="d-flex align-items-center mt-1">
-                                                        <small className="text-muted">Total Amount: ₹{book.price}</small>
                                                     </div>
                                                 </td>
                                                 <td className="text-end d-flex">
