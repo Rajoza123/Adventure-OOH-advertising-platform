@@ -30,6 +30,7 @@ import Requests from "./Requests"
 import ViewBillBoard from "./ViewBillBoard"
 import DeleteBillBoard from "./DeleteBillBoard"
 import UpdateBillBoard from "./UpdateBillBoard"
+import CompanyBillBoards from "./CompanyBillBoards"
 
 
 const Main = () => {
@@ -85,6 +86,7 @@ const Main = () => {
                 <Route path="view/:id" element={<ViewBillBoard />} />
                 <Route path="update/:id" element={<UpdateBillBoard />} />
                 <Route path="delete/:id" element={<DeleteBillBoard />} />
+                <Route path="company/:id" element={<CompanyBillBoards />} />
 
             </Route>
             <Route path="/Signup" element={<Signup/>}></Route>

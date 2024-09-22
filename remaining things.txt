@@ -2,9 +2,11 @@ multiple photos for billboard
 
 
 publisher:
-    delete billboard
-    upadate billboard
-    view costomers
-    view billboards
-    view order
-    order request/notification
+    delete billboard ✔
+    upadate billboard ✔
+    view costomers ✔
+    view billboards ✔
+    view order {Page Created => data request pending}
+    order request/notification {Page Created => data request pending}
+    publisherXCompany 
+

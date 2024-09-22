@@ -17,7 +17,7 @@ function UpdateBillBoard() {
         price: '',
         num_of_boards: ''
     });
-    const [isLoading, setIsLoading] = useState(true); 
+    const [isLoading, setIsLoading] = useState(true);
     const [types, setTypes] = useState([]);
     const { id } = useParams();
     const navigate = useNavigate();
@@ -26,24 +26,25 @@ function UpdateBillBoard() {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                if (!token){
+                if (!token) {
                     throw new Error("Unauthorized");
                 }
 
-                const billboardRes = await axios.get(`http://127.0.0.1:8000/billboard/${id}/`,{
+                const billboardRes = await axios.get(`http://127.0.0.1:8000/billboard/${id}/`, {
                     headers: { 'Authorization': token }
                 });
 
-                const typesRes = await axios.get('http://127.0.0.1:8000/billtype/',{
+                const typesRes = await axios.get('http://127.0.0.1:8000/billtype/', {
                     headers: { 'Authorization': token }
                 });
                 setFormData(prevData => ({
                     ...prevData,
                     ...billboardRes.data,
                     coordinates: {
-                        lat: parseFloat(billboardRes.data.coordinates.split(',')[0]), 
-                        lng: parseFloat(billboardRes.data.coordinates.split(',')[1]) 
+                        lat: parseFloat(billboardRes.data.coordinates.split(',')[0]),
+                        lng: parseFloat(billboardRes.data.coordinates.split(',')[1])
                     },
+                    type: billboardRes.data.type.id,
                     image: billboardRes.data.image
                 }));
 
@@ -52,12 +53,12 @@ function UpdateBillBoard() {
                 setTypes(typesRes.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                if (error.message === "Unauthorized"){
+                if (error.message === "Unauthorized") {
                     alert("Unauthorized");
-                    navigate('/login'); 
+                    navigate('/login');
                 }
             } finally {
-                setIsLoading(false); 
+                setIsLoading(false);
             }
         };
 
@@ -73,7 +74,6 @@ function UpdateBillBoard() {
     };
 
     const handleImageChange = (e) => {
-        // Handle image change logic if needed
     };
 
     const handleSubmit = async (e) => {
@@ -82,24 +82,25 @@ function UpdateBillBoard() {
             let formdata = new FormData();
             const homedata = document.forms['add-bill'];
             formdata.append('area', formData.area);
-            formdata.append('type', formData.type);
+            formdata.append('type', parseInt(formData.type));
             formdata.append('coordinates', `${formData.coordinates.lat},${formData.coordinates.lng}`);
             formdata.append('locality', formData.locality);
             formdata.append('width', formData.width);
             formdata.append('height', formData.height);
+            if(homedata.images.files.length > 0)
             formdata.append('image', homedata.images.files[0]);
             formdata.append('price', formData.price);
             formdata.append('num_of_boards', formData.num_of_boards);
 
             const token = localStorage.getItem('token');
             if (!token) {
-                throw new Error("Unauthorized"); 
+                throw new Error("Unauthorized");
             }
 
-            await axios.put('http://127.0.0.1:8000/billboard/', formdata, {
+            await axios.put(`http://127.0.0.1:8000/billboard/${id}/`, formdata, {
                 headers: { 'Authorization': token }
             });
-            alert('Billboard added successfully');
+            alert('Billboard Updated successfully');
         } catch (error) {
             console.error("Error submitting data:", error);
             if (error.message === "Unauthorized") {
@@ -220,7 +221,6 @@ function UpdateBillBoard() {
                                 value={formData.type}
                                 onChange={handleChange}
                             >
-                                <option value="">Select Type</option>
                                 {types.map(type => (
                                     <option key={type.id} value={type.id}>{type.name}</option>
                                 ))}
@@ -277,13 +277,13 @@ function UpdateBillBoard() {
                         </Form.Group>
 
                         <Form.Group className="mb-3">
-                            <a href={"http://localhost:8000/"+formData.image} target='_blank'> View Image </a>
+                            <a href={"http://localhost:8000/" + formData.image} target='_blank'> View Image </a>
                             <Form.Label>Upload Images</Form.Label>
                             <Form.Control
                                 type="file"
                                 name='images'
                                 multiple
-                                onChange={handleImageChange}
+                                value={formData.image.url}
                             />
                         </Form.Group>
 

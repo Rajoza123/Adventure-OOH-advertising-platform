@@ -9,6 +9,17 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 
 function Publisher_Dashboard() {
 
+  const companies = [{
+    "id": 1,
+    "name": "Malabar - Gold & Diamonds"
+
+  },
+  {
+    "id": 2,
+    "name": "Tata Motors",
+  }
+]
+
   useEffect(()=>{
     if(window.localStorage.getItem("is_authenticated")){
       if(!window.localStorage.getItem("publisher_id")){
@@ -77,9 +88,11 @@ function Publisher_Dashboard() {
               Customer
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="#/customer1">Company 1</Dropdown.Item>
-              <Dropdown.Item href="#/customer2">Company 2</Dropdown.Item>
-              <Dropdown.Item href="#/customer3">Company 3</Dropdown.Item>
+              {
+                companies.map((company)=>{
+                  return <Dropdown.Item href={`/publisher/company/${company.id}/`}>{company.name}</Dropdown.Item>
+                })
+              }
             </Dropdown.Menu>
           </Dropdown>
 
@@ -89,7 +102,7 @@ function Publisher_Dashboard() {
               Updates
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item href="requests">BillBoard Requests</Dropdown.Item>
+              <Dropdown.Item href="/publisher/requests">BillBoard Requests</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
         </Col>
