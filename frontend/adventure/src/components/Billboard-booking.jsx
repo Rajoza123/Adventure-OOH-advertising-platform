@@ -155,7 +155,7 @@ export default function BillboardBooking() {
               ranges={[selectionRange]}
               onChange={handleSelect}
               minDate={new Date()}
-              disabledDates={[]}
+              disabledDates={billboard.disabled_dates}
               renderStaticRangeLabel={renderStaticRangeLabel}
             />
 
