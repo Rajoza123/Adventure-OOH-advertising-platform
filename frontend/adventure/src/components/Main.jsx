@@ -23,6 +23,8 @@ import Logout from "./Logout"
 import BillBoardList from "./BillBoardList"
 import Company from "./Company"
 import Notification from "./Notification"
+import Booking from './Booking'
+import Billboardbooking from './Billboard-booking'
 
 const Main = () => {
 
@@ -84,6 +86,7 @@ const Main = () => {
             <Route path="/pdash" element={<Publisher_Dashboard/>}></Route>
             <Route path="/billboards" element={<BillBoardList/>}></Route>
             <Route path="/addbill" element={<AddBillboard/>}></Route>
+            <Route path="/booking" element={<Billboardbooking/>}></Route>
         </Routes>
       </Router>
       

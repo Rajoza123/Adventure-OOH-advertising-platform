@@ -45,7 +45,7 @@ const MyMap = (props) => {
     })
   }, [])
   const handleClick=()=>{
-    
+
   }
 
   return (
@@ -81,7 +81,7 @@ const MyMap = (props) => {
                       <p> <b> Type : </b>{marker.type.name} </p>
                     </p>
                     <p> <b> Price :</b> ₹ {marker.price} </p>
-                    <button className="btn btn-dark" onClick={}>Book</button>
+                    <button className="btn btn-dark" onClick={handleClick}>Book</button>
                   </div>
                 </div>
               </Popup>
