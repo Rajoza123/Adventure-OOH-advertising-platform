@@ -77,13 +77,7 @@ function AddBillboard() {
                             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         />
 
-                        {markerPosition && (
-                            <Marker position={[markerPosition.lat, markerPosition.lng]}>
-                                <Popup>
-                                    {markerPosition.lat}, {markerPosition.lng}
-                                </Popup>
-                            </Marker>
-                        )}
+                        
 
                         <MapClickHandler />
                         <Marker position={[coordinates.lat, coordinates.lng]}>
