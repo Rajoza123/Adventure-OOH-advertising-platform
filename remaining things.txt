@@ -7,4 +7,3 @@ publisher:
     view costomers
     view order
     order request/notification
-
