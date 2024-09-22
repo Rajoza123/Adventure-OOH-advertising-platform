@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from publisher.models import PublisherAuthToken
+from company.models import CompanyAuthToken
 from . models import *
 from . serializer import *
 # Create your views here.
@@ -17,11 +18,40 @@ class BillxCompView(APIView):
 		serializer = self.serializer_class(billxcomp_list,many=True)
 		return Response(serializer.data)
 
-	def post(self, request): 
-		serializer = ReactBillxCompSerializer(data=request.data) 
-		if serializer.is_valid(raise_exception=True): 
-			serializer.save() 
-			return Response(serializer.data) 
+	def post(self, request):
+		token = request.headers.get('Authorization')
+
+		# Check if token is provided
+		if not token:
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+		try:
+			# Retrieve auth token and company
+			auth_token = CompanyAuthToken.objects.get(token=token)
+			if not auth_token.is_valid():
+				return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+
+			company = companies.objects.get(id=auth_token.user.id)
+		except CompanyAuthToken.DoesNotExist:
+			return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+		except companies.DoesNotExist:
+			return Response({'error': 'Company not found'}, status=status.HTTP_404_NOT_FOUND)
+
+		# Modify the request data to inject publisher_id
+		request_data = request.data.copy()
+		request_data['company_id'] = company.id
+
+		# Pass modified data to the serializer
+		serializer = ReactBillxCompSerializer(data=request_data)
+
+		# Validate and save the data
+		try:
+			if serializer.is_valid(raise_exception=True):
+				serializer.save()
+				return Response(serializer.data, status=status.HTTP_201_CREATED)
+		except serializers.ValidationError as e:
+			print(e)  # Log serializer errors
+			return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class BillboardTypeView(APIView): 
@@ -67,8 +97,7 @@ class BillBoardView(APIView):
 
 		# Check if token is provided
 		if not token:
-			# return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
-			return Response("fffffff")
+			return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
 		try:
 			# Retrieve auth token and publisher
 			auth_token = PublisherAuthToken.objects.get(token=token)

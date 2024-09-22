@@ -24,12 +24,12 @@ from billboard.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('publisher/',PublisherView.as_view()),
-    path('company/',CompanyView.as_view()),
-    path('company/<int:id>/',CompanyView.as_view()),
-    path('billtype/',BillboardTypeView.as_view()),
-    path('billboard/',BillBoardView.as_view()),
-    path('billxcomp/',BillxCompView.as_view()),
+    path('publisher/',PublisherView.as_view(),name='Publishers'),
+    path('company/',CompanyView.as_view(),name='Companies'),
+    path('company/<int:id>/',CompanyView.as_view(),name='Company'),
+    path('billtype/',BillboardTypeView.as_view(),name='Billboard-Type'),
+    path('billboard/',BillBoardView.as_view(),name='Billboard'),
+    path('billxcomp/',BillxCompView.as_view(),name='Booking'),
     path('comp_signin/', CompanySignInView.as_view(), name='company-signin'),
     path('comp_profile/', CompanyProfileView.as_view(), name='company-profile'),
     path('comp_signout/', CompanySignOutView.as_view(), name='company-signout'),
