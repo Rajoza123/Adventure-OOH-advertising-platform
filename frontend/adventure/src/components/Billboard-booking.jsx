@@ -22,7 +22,7 @@ export default function BillboardBooking() {
     key: 'selection',
   });
   const [price, setPrice] = useState('');
-  const [coordinates, setCoordinates] = useState({ lat: 23.037547757260782, lng: 72.55952939994147 });
+  const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [billboard, setBillboard] = useState({});
 
   // Handle date range selection
@@ -70,14 +70,19 @@ export default function BillboardBooking() {
                 {[1, 2, 3].map((index) => (
                   <Carousel.Item key={index}>
                     <img
-                      src={`/placeholder.svg?height=200&width=400&text=Billboard+Image+${index}`}
+                      src={`http://127.0.0.1:8000/${billboard.image}`}
                       alt={`Billboard ${index}`}
                       className="w-100 h-48 object-cover"
                     />
                   </Carousel.Item>
                 ))}
               </Carousel>
-              <h2 className="text-xl font-bold mt-4">{billboard.area}</h2>
+              <br />
+              <p>price: {billboard.price}</p>
+              <p>locality: {billboard.locality}</p>
+              <p>area: {billboard.area}</p>
+              <p>Size: {billboard.width} × {billboard.height}</p>
+                
             </Card.Body>
           </Card>
         </div>
@@ -119,6 +124,8 @@ export default function BillboardBooking() {
             <DateRangePicker
               ranges={[selectionRange]}
               onChange={handleSelect}
+              minDate={new Date()}
+              disabledDates={[]}
             />
           </div>
           
