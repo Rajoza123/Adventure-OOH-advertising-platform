@@ -54,7 +54,7 @@ export default function BillboardBooking() {
     axios.post("http://127.0.0.1:8000/book",formData,{
       headers: {
        'Content-Type': 'multipart/form-data',
-       'Authorization': `Bearer ${sessionid}`
+       'Authorization': localStorage.getItem('token')
       }
     }).then((res)=>{
       console.log(res.data)
