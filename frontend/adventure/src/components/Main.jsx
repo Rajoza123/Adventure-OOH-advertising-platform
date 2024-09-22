@@ -86,7 +86,7 @@ const Main = () => {
             <Route path="/pdash" element={<Publisher_Dashboard/>}></Route>
             <Route path="/billboards" element={<BillBoardList/>}></Route>
             <Route path="/addbill" element={<AddBillboard/>}></Route>
-            <Route path="/booking" element={<Billboardbooking/>}></Route>
+            <Route path="/book/:id" element={<Billboardbooking/>}></Route>
         </Routes>
       </Router>
       
