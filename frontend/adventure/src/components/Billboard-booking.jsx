@@ -15,16 +15,16 @@ export default function BillboardBooking() {
 
   // Initial states
   const [dateRange, setDateRange] = useState("");
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState([]);
   const [selectionRange, setSelectionRange] = useState({
     startDate: new Date(),
     endDate: new Date(),
     key: 'selection',
   });
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0); // Ensure price is controlled
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [billboard, setBillboard] = useState({});
-  const sessionid = window.localStorage.getItem("company_id")
+  const sessionid = window.localStorage.getItem("company_id");
 
   // Handle date range selection
   function handleSelect(ranges) {
@@ -34,39 +34,41 @@ export default function BillboardBooking() {
       endDate: ranges.selection.endDate,
     });
 
-    setPrice(()=>{
+    setPrice(() => {
       const start = ranges.selection.startDate.getTime();
       const end = ranges.selection.endDate.getTime();
-      const duration = (end - start) / (1000 * 60 * 60 *  24);
-      const price = (duration+1) * billboard.price;
-      return price;
-
-    })
+      const duration = (end - start) / (1000 * 60 * 60 * 24);
+      const price = (duration + 1) * billboard.price;
+      return price || 0; // Fallback to 0 if billboard price is undefined
+    });
   }
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const  formData = new FormData();
+    const formData = new FormData();
     const fields = document.forms["book"];
-    
-    formData.append("id",fields.id.value)
-    formData.append("images",fields.images.files)
-    formData.append("price",fields.price.value)
-    formData.append("company_id",fields.company_id.value)
 
-    formData.append("start_date",selectionRange.startDate)
-    formData.append("end_date",selectionRange.endDate)
+    formData.append("id", fields.id.value);
+    formData.append("company_id", sessionid);
 
-    axios.post("http://127.0.0.1:8000/billxcomp",formData,{
+    // Handle multiple file uploads
+    Array.from(image).forEach((file) => {
+      formData.append("images", file);
+    });
+
+    formData.append("price", fields.price.value);
+    formData.append("start_date", selectionRange.startDate.toISOString());
+    formData.append("end_date", selectionRange.endDate.toISOString());
+
+    axios.post("http://127.0.0.1:8000/billxcomp", formData, {
       headers: {
-       'Content-Type': 'multipart/form-data',
-       'Authorization': localStorage.getItem('token')
-      }
-    }).then((res)=>{
-      console.log(res.data)
-    })
-    // Submit the data to server or perform any action needed
+        'Content-Type': 'multipart/form-data',
+        'Authorization': localStorage.getItem('token'),
+      },
+    }).then((res) => {
+      console.log(res.data);
+    });
   };
 
   function renderStaticRangeLabel(range) {
@@ -112,7 +114,6 @@ export default function BillboardBooking() {
               <p>locality: {billboard.locality}</p>
               <p>area: {billboard.area}</p>
               <p>Size: {billboard.width} × {billboard.height}</p>
-
             </Card.Body>
           </Card>
         </div>
@@ -126,12 +127,7 @@ export default function BillboardBooking() {
             <Card.Body>
               <div style={{ height: "400px", width: "100%" }}>
                 {billboard && (
-                  <MapContainer
-                    center={[coordinates.lat, coordinates.lng]}
-                    zoom={13}
-                    style={{ height: "100%", width: "100%" }}
-                    key={`${coordinates.lat}-${coordinates.lng}`} // Force re-render when coords change
-                  >
+                  <MapContainer center={[coordinates.lat, coordinates.lng]} zoom={13} style={{ height: "100%", width: "100%" }} key={`${coordinates.lat}-${coordinates.lng}`} >
                     <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                     <Marker position={[coordinates.lat, coordinates.lng]}>
                       <Popup>Billboard Location</Popup>
@@ -151,48 +147,23 @@ export default function BillboardBooking() {
         </Card.Header>
         <Card.Body>
           <div className="date-picker">
-            <DateRangePicker
-              ranges={[selectionRange]}
-              onChange={handleSelect}
-              minDate={new Date()}
-              disabledDates={billboard.disabled_dates}
-              renderStaticRangeLabel={renderStaticRangeLabel}
-            />
-
-            <style jsx>{`
+            <DateRangePicker ranges={[selectionRange]} onChange={handleSelect} minDate={new Date()} disabledDates={billboard.disabled_dates} renderStaticRangeLabel={renderStaticRangeLabel} />
+            <style>{`
               .rdrDefinedRangesWrapper {
                 display: none;
               }
-            `}
-      </style>
+            `}</style>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4" name='book'>
-            <input type="hidden" name="id" value={billboard.id} />
+            <input type="hidden" name="id" value={billboard.id || ''} />
             <div className="form-group">
               <label htmlFor="price">Price</label>
-              <input
-                id="price"
-                type="number"
-                className="form-control"
-                placeholder="Enter price"
-                name='price'
-                value={price}
-                onChange={(e) => setPrice(e.target.value)}
-                disabled
-              />
+              <input id="price" type="number" className="form-control" name="price" value={price} disabled />
             </div>
             <div className="form-group">
-              <label htmlFor="image">Upload Image</label>
-              <input
-                id="image"
-                type="file"
-                className="form-control"
-                onChange={(e) => setImage(e.target.files[0])} // Handle single file selection
-                name='images'
-                multiple
-              />
-    
+              <label htmlFor="image">Upload Images</label>
+              <input id="image" type="file" className="form-control" multiple onChange={(e) => setImage(e.target.files)} />
             </div>
             <Button type="submit">Submit Booking</Button>
           </form>
