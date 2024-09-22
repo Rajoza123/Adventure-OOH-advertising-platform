@@ -12,7 +12,7 @@ import axios from 'axios';
 
 export default function BillboardBooking() {
   const { id } = useParams();
-
+  
   // Initial states
   const [dateRange, setDateRange] = useState("");
   const [image, setImage] = useState(null);
@@ -24,7 +24,6 @@ export default function BillboardBooking() {
   const [price, setPrice] = useState('');
   const [coordinates, setCoordinates] = useState({ lat: 0, lng: 0 });
   const [billboard, setBillboard] = useState({});
-  const sessionid = window.localStorage.getItem("company_id")
 
   // Handle date range selection
   function handleSelect(ranges) {
@@ -33,13 +32,16 @@ export default function BillboardBooking() {
       startDate: ranges.selection.startDate,
       endDate: ranges.selection.endDate,
     });
-
-    console.log(ranges)
   }
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+<<<<<<< HEAD
+    console.log("Date Range:", selectionRange);
+    console.log("Price:", price);
+    console.log("Image:", image);
+=======
     const  formData = new FormData();
     const fields = document.forms["book"];
     
@@ -59,12 +61,9 @@ export default function BillboardBooking() {
     }).then((res)=>{
       console.log(res.data)
     })
+>>>>>>> 244d1e5a75cca66558ad086569a482d76a7f669e
     // Submit the data to server or perform any action needed
   };
-
-  function renderStaticRangeLabel(range) {
-    return <span>{range.label}</span>;
-  }
 
   // Fetch billboard details
   useEffect(() => {
@@ -105,7 +104,7 @@ export default function BillboardBooking() {
               <p>locality: {billboard.locality}</p>
               <p>area: {billboard.area}</p>
               <p>Size: {billboard.width} × {billboard.height}</p>
-
+                
             </Card.Body>
           </Card>
         </div>
@@ -119,9 +118,9 @@ export default function BillboardBooking() {
             <Card.Body>
               <div style={{ height: "400px", width: "100%" }}>
                 {billboard && (
-                  <MapContainer
-                    center={[coordinates.lat, coordinates.lng]}
-                    zoom={13}
+                  <MapContainer 
+                    center={[coordinates.lat, coordinates.lng]} 
+                    zoom={13} 
                     style={{ height: "100%", width: "100%" }}
                     key={`${coordinates.lat}-${coordinates.lng}`} // Force re-render when coords change
                   >
@@ -149,20 +148,10 @@ export default function BillboardBooking() {
               onChange={handleSelect}
               minDate={new Date()}
               disabledDates={[]}
-              renderStaticRangeLabel={renderStaticRangeLabel}
             />
-
-            <style jsx>{`
-              .rdrDefinedRangesWrapper {
-                display: none;
-              }
-            `}
-      </style>
           </div>
-
-          <form onSubmit={handleSubmit} className="space-y-4" name='book'>
-            <input type="hidden" name="id" value={billboard.id} />
-            <input type="hidden" name="company_id" value={sessionid} />
+          
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="form-group">
               <label htmlFor="price">Price</label>
               <input
@@ -170,7 +159,6 @@ export default function BillboardBooking() {
                 type="number"
                 className="form-control"
                 placeholder="Enter price"
-                name='price'
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
               />
@@ -182,10 +170,7 @@ export default function BillboardBooking() {
                 type="file"
                 className="form-control"
                 onChange={(e) => setImage(e.target.files[0])} // Handle single file selection
-                name='images'
-                multiple
               />
-    
             </div>
             <Button type="submit">Submit Booking</Button>
           </form>
