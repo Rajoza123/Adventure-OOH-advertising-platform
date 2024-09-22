@@ -45,7 +45,7 @@ export default function Dashboard() {
   useEffect(()=>{
       axios('http://127.0.0.1:8000/comp_profile/',{
           headers: {
-              'Authorization': localStorage.getItem('token'), // Adjust according to your auth mechanism
+              'Authorization': localStorage.getItem('token'),
           },
       })
       .then((res)=>{
