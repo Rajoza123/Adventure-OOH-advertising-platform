@@ -37,6 +37,7 @@ urlpatterns = [
     path('pub_signin/', PublisherSignInView.as_view(), name='company-signin'),
     path('pub_profile/', PublisherProfileView.as_view(), name='company-profile'),
     path('pub_signout/', PublsiherSignOutView.as_view(), name='company-signout'),
+    path('bookings/', Bookings.as_view(), name='company-Bookings'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

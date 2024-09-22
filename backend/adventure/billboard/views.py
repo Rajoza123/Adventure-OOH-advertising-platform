@@ -61,7 +61,54 @@ class BillxCompView(APIView):
 	# 		return Response(serializer.data) 
 
 class Bookings(APIView):
-    def get(self,request):
+
+    def get(self, request):
+        # Retrieve the Authorization token from headers
+        token = request.headers.get('Authorization')
+
+        # Check if the token is provided
+        if not token:
+            return Response({'error': 'Authorization token missing'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # Retrieve the auth token and the company
+            auth_token = CompanyAuthToken.objects.get(token=token)
+            if not auth_token.is_valid():
+                return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            company = companies.objects.get(id=auth_token.user.id)
+        except CompanyAuthToken.DoesNotExist:
+            return Response({'error': 'Invalid token'}, status=status.HTTP_401_UNAUTHORIZED)
+        except companies.DoesNotExist:
+            return Response({'error': 'Company not found'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Get all billxcomp records related to this company
+        billxcomp_records = billxcomp.objects.filter(company_id=company.id)
+
+        # Prepare a list to hold the combined serialized data
+        data = []
+
+        # Iterate over billxcomp records to include billboard data
+        for record in billxcomp_records:
+            # Serialize the billxcomp record
+            serializer = ReactBillxCompSerializer(record)
+
+            # Get the corresponding billboard data
+            try:
+                billboard_instance = billboards.objects.get(id=record.billboard_id.id)  # Ensure you're getting the ID
+                billboard_serializer = ReactBillBoardSerializer(billboard_instance)
+
+                # Combine the serialized data
+                combined_data = serializer.data
+                combined_data['billboard'] = billboard_serializer.data
+            except billboards.DoesNotExist:
+                combined_data = serializer.data
+                combined_data['billboard'] = None  # Handle missing billboard
+
+            data.append(combined_data)
+
+        # Return the combined serialized data
+        return Response(data, status=status.HTTP_200_OK)
         
 
 
