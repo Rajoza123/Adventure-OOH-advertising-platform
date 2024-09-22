@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import { Link, useNavigate } from 'react-router-dom';
 import L from 'leaflet';
 import '../App.css'
 import icon from './images/ad.jpg'
@@ -35,6 +36,7 @@ const MyMap = (props) => {
   const cordinates = [22.99180142158226, 72.4865308522456]
   const location = 'Ahmedabad'
   const [markers, setMarkers] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     axios.get('http://127.0.0.1:8000/billboard/').then((res) => {
@@ -78,7 +80,7 @@ const MyMap = (props) => {
                       <p> <b> Type : </b>{marker.type.name} </p>
                     </p>
                     <p> <b> Price :</b> ₹ {marker.price} </p>
-                    <button className="btn btn-dark">Book</button>
+                    <Link to={"/book/"+marker.id}><button className="btn btn-dark" onClick={()=>redirectToBook(marker.id)}>Book</button></Link>
                   </div>
                 </div>
               </Popup>
