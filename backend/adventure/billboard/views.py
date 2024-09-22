@@ -60,7 +60,6 @@ class BillxCompView(APIView):
 	# 		serializer.save() 
 	# 		return Response(serializer.data) 
 
-<<<<<<< HEAD
 class Bookings(APIView):
 
     def get(self, request):
@@ -110,10 +109,6 @@ class Bookings(APIView):
 
         # Return the combined serialized data
         return Response(data, status=status.HTTP_200_OK)
-=======
-# class Bookings(APIView):
-#     def get(self,request):
->>>>>>> 27fc297375cf9fd9b1fe61c41742c3e3e5824d0d
         
 
 
