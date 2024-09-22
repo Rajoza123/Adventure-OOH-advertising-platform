@@ -6,5 +6,5 @@ publisher:
     upadate billboard
     view costomers
     view order
-    order notification
+    order request/notification
 
