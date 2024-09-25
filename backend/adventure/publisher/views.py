@@ -1,12 +1,12 @@
 from django.shortcuts import render 
 from rest_framework.views import APIView 
 from . models import *
-from billboard.models import billboards
+from billboard.models import billboards,billxcomp
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import status
 from . serializer import *
-from billboard.serializer import ReactBillBoardSerializer
+from billboard.serializer import ReactBillBoardSerializer,ReactBillxCompSerializer
 # Create your views here. 
 
 class PublisherView(APIView): 
@@ -114,4 +114,13 @@ class PublisherBillBoardsViews(APIView):
                 return Response({'error': 'Not authenticated'}, status=403)
         except Exception as e:
             return Response({'error': 'user not found'}, status=403)
-        
+
+class PublisherRequests(APIView):
+    def get(self, request, id=None):
+        if id:
+            # boards = billboards.objects.get(id=id)
+
+            bookings = billxcomp.objects.filter(billboard_id__id=id)
+
+        serializer = ReactBillxCompSerializer(bookings, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
