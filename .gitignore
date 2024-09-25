@@ -30,3 +30,4 @@ __pycache__
 __pycache__/*
 *.pyc
 db.sqlite3
+backend/adventure/db.sqlite3
