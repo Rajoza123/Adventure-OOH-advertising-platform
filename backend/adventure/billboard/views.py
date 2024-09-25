@@ -15,8 +15,10 @@ class BillxCompView(APIView):
 	
 	serializer_class = ReactBillxCompSerializer 
 
-	def get(self, request): 
+	def get(self, request,id=None): 
 		billxcomp_list = billxcomp.objects.all()
+		if id:
+			billxcomp_list = billxcomp.objects.get(billboard_id=id)
 		serializer = self.serializer_class(billxcomp_list,many=True)
 		return Response(serializer.data)
 

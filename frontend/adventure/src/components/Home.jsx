@@ -10,12 +10,6 @@ import Col from 'react-bootstrap/Col';
 import i1 from './images/ad.jpg'
 import i2 from './images/ad1.jpg'
 import i3 from './images/ad3.jpg'
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { LocalizationProvider } from '@mui/x-date-pickers-pro/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
-import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
-// Fix for default marker icon issue
-import backMap from './images/backMap.jpg'
 import {
   MDBRow,
   MDBCol,
@@ -84,8 +78,47 @@ const CarouselComponent = () => {
             <Row className="mb-3">
               <Form.Group as={Col} controlId="formGridEmail">
                 <Form.Label>Search for media</Form.Label>
-                <Form.Control type="text" name='city' placeholder="Enter Board Location for city" defaultValue={'ahmedabad'} />
-              </Form.Group>
+                <Form.Select name='city' >
+                                <option value="" >Select Area</option>
+                                <option value="ashram-road">Ashram Road</option>
+                                <option value="navrangpura">Navrangpura</option>
+                                <option value="cg-road">C.G. Road</option>
+                                <option value="ellisbridge">Ellisbridge</option>
+                                <option value="vastrapur">Vastrapur</option>
+                                <option value="sg-highway">S.G. Highway</option>
+                                <option value="paldi">Paldi</option>
+                                <option value="maninagar">Maninagar</option>
+                                <option value="bopal">Bopal</option>
+                                <option value="gota">Gota</option>
+                                <option value="chandkheda">Chandkheda</option>
+                                <option value="satellite">Satellite</option>
+                                <option value="nikol">Nikol</option>
+                                <option value="ghodas">Ghodasar</option>
+                                <option value="memnagar">Memnagar</option>
+                                <option value="vej">Vejalpur</option>
+                                <option value="jodhpur">Jodhpur</option>
+                                <option value="ranip">Ranip</option>
+                                <option value="amraiwadi">Amraiwadi</option>
+                                <option value="naranpura">Naranpura</option>
+                                <option value="sabarmati">Sabarmati</option>
+                                <option value="lal-darwaja">Lal Darwaja</option>
+                                <option value="kalupur">Kalupur</option>
+                                <option value="khadia">Khadia</option>
+                                <option value="kankaria">Kankaria</option>
+                                <option value="vastral">Vastral</option>
+                                <option value="anandnagar">Anandnagar</option>
+                                <option value="prahlad-nagar">Prahlad Nagar</option>
+                                <option value="bodakdev">Bodakdev</option>
+                                <option value="thaltej">Thaltej</option>
+                                <option value="ghuma">Ghuma</option>
+                                <option value="sardar-patel-stadium">Sardar Patel Stadium Area</option>
+                                <option value="isanpur">Isanpur</option>
+                                <option value="odhav">Odhav</option>
+                                <option value="bapunagar">Bapunagar</option>
+                                <option value="raipur">Raipur</option>
+                                {/* Add more areas as needed */}
+                            </Form.Select>
+                            </Form.Group>
 
               <Form.Group as={Col} controlId="formGridState">
                 <Form.Label>Select Media Type</Form.Label>
@@ -126,11 +159,7 @@ const CarouselComponent = () => {
         }
         
       </MDBRow>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <DemoContainer components={['DateRangePicker']}>
-          <DateRangePicker localeText={{ start: 'Check-in', end: 'Check-out' }} />
-        </DemoContainer>
-      </LocalizationProvider>
+    
     </div>
   );
 };

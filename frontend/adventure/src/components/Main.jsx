@@ -40,16 +40,16 @@ const Main = () => {
     <div>
       <Router>
         
-        <Navbar bg="primary" data-bs-theme="black" style={{zIndex:2}} >
+        <Navbar bg="primary" data-bs-theme="dark " className="text-light" style={{zIndex:2}} >
         <img src={logo} alt="no image " width={'200px'} id="logo" />
         <Container>
-          <Nav className=" ms-auto">
+          <Nav className=" ms-auto ">
             <Nav.Link href="/" className="linkItem">Home</Nav.Link>
             { 
               (authenticated && localStorage.getItem("publisher_id")) && <Nav.Link href="/Publisher"  className="linkItem">Publisher</Nav.Link>
             }
             { 
-              (authenticated && localStorage.getItem("company_id")) && <Nav.Link href="/company"  className="linkItem">Company</Nav.Link>
+              (authenticated && localStorage.getItem("company_id")) && <Nav.Link href="/company"  className="linkItem   ">Company</Nav.Link>
             }
             
             <Nav.Link href="/aboutus"  className="linkItem">About Us</Nav.Link>
